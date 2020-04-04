@@ -6,6 +6,7 @@ def set_up_window():
     window.tk.call('wm', 'iconphoto', window._w, tkinter.PhotoImage(file = Rules.path +'icon.gif'))
     start(window)
     menu(window)
+    window.mainloop()
 
 def start(window):
     photo = tkinter.PhotoImage(file = Rules.path + "Intro.gif")
@@ -90,7 +91,11 @@ def reset_board():
 
 def create_board(window, board):
     bttnclr="white"
+<<<<<<< HEAD
+    for column_number in range(0, len(board)):
+=======
     for column_number in range(0, len(board):
+>>>>>>> 42228514ff26e17146afb16fae59295952203522
         for row_number in range(0, len(column_number)):
             try:
                 img = tkinter.PhotoImage(file = board[row_number][column_number].icon)
