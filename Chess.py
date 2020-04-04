@@ -90,8 +90,8 @@ def reset_board():
 
 def create_board(window, board):
     bttnclr="white"
-    for column_number in board:
-        for row_number in column_number:
+    for column_number in range(0, len(board):
+        for row_number in range(0, len(column_number)):
             try:
                 img = tkinter.PhotoImage(file = board[row_number][column_number].icon)
                 square = tkinter.Label(window, bg = bttnclr, image = img)
