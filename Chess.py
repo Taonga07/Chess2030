@@ -84,7 +84,7 @@ def reset_board():
             elif row == 1:
                 rowlist.append(Rules.Pawn('Pawn', Rules.path+'Black_Pawn.gif', 'black', column, row))
             else:
-                rowlist.append(0)
+                rowlist.append(None)
         board.append(rowlist)
     return board
 
@@ -99,7 +99,7 @@ def create_board(window, board):
                 square.image = img
             except:
                 square = tkinter.Label(window, text = "                 \n\n\n", bg = bttnclr)
-            square.grid(row = row_number, column = column_number)
+                square.grid(row = row_number, column = column_number)
             if bttnclr == Rules.light_bttnlcr:
                 bttnclr = Rules.dark_bttnlcr
 if __name__ =="__main__":
