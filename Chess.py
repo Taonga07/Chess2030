@@ -86,7 +86,6 @@ def reset_board():
             else:
                 rowlist.append(None)
         board.append(rowlist)
-
     return board
 
 def create_board(window, board):
@@ -105,8 +104,6 @@ def create_board(window, board):
                 bttnclr = Rules.dark_bttnlcr
 if __name__ =="__main__":
     set_up_window()
-
-
 
 # Globals #
 #could be replaced with Chess.________ 
