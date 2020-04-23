@@ -90,9 +90,10 @@ def reset_board():
     return board
 
 def create_board(window, board):
-    bttnclr="white"
-    for column_number in range(0, len(str(board))):
-        for row_number in range(0, len(str(column_number))):
+    bttnclr=Rules.light_bttnlcr
+    for column_number in board:
+#        column_entry = []
+        for row_number in column_number:
             try:
                 img = tkinter.PhotoImage(file = board[row_number][column_number].icon)
                 square = tkinter.Label(window, bg = bttnclr, image = img)
@@ -100,13 +101,8 @@ def create_board(window, board):
             except:
                 square = tkinter.Label(window, text = "                 \n\n\n", bg = bttnclr)
             square.grid(row = row_number, column = column_number)
-            if bttnclr == "white":
-                bttnclr = "grey"
-            else:
-                bttnclr = "white"
-
-
-
+            if bttnclr == Rules.light_bttnlcr:
+                bttnclr = Rules.dark_bttnlcr
 if __name__ =="__main__":
     set_up_window()
 
