@@ -1,4 +1,5 @@
 import tkinter, Chess, Rules, File, os
+from tkinter import messagebox
 
 def set_up_window():
     window = tkinter.Tk()
@@ -118,19 +119,13 @@ def on_click(event):
 #    global onclick
 #    global old_colour
 #    global piece_to_move
+
     Rules.onclick = Rules.onclick+1
     square = event.widget
     row_number = int(square.grid_info()["row"])
     column_number  = int(square.grid_info()["column"])
     try:
-        if ((Rules.onclick == 1 
-            and (
-                (Rules.turn == 0 and Chess.board[row_number][column_number].colour == 'white') 
-                or (Rules.turn == 1 and Chess.board[row_number][column_number].colour == 'black')
-            )) 
-            or Rules.onclick == 2
-            ):
-            currentText = square.cget("text")
+        if ((Rules.onclick == 1 and ((Rules.turn == 0 and Chess.board[row_number][column_number].colour == 'white') or (Rules.turn == 1 and Chess.board[row_number][column_number].colour == 'black'))) or Rules.onclick == 2):
 
             if Rules.onclick == 1:
                 print('Where would you like to move your', Chess.board[row_number][column_number].piece, 'to?')
@@ -159,12 +154,12 @@ def on_click(event):
                             Rules.turn = 0
                     else:
                         mssg = 'This move is not allowed'
-                        tkinter.messagebox.showinfo("Move Not Possible","mssg")
+                        tkinter.messagebox.showinfo("Move Not Possible",mssg)
                 else:
                     tkinter.messagebox.showinfo("Move Not Possible", "You can not take your own piece!")
     except:
         if Rules.onclick == 1:
-            tkinter.messagebox.showinfo("Move Not Possible","No piece there, try again")
+            tkinter.messagebox.showinfo("Move Not Possible","Your/No piece there, try again")
         else:
             tkinter.messagebox.showerror("Error","An error has ocurred!")
         raise
