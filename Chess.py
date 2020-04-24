@@ -157,13 +157,16 @@ def on_click(event):
                             Rules.turn = 1
                         else:
                             Rules.turn = 0
+                     else:
+                        mssg = 'This move is not allowed'
+                        tkinter.messagebox.showinfo("Move Not Possible","mssg)
                 else:
-                    print('you can not take your own piece')
+                    tkinter.messagebox.showinfo("Move Not Possible", "You can not take your own piece!")
     except:
         if Rules.onclick == 1:
-            print('No piece there, try again')
+            tkinter.messagebox.showinfo("Move Not Possible","No piece there, try again")
         else:
-            print('an error has ocurred')
+            tkinter.messagebox.showerror("Error","An error has ocurred!")
         raise
     Rules.onclick = 0
       
