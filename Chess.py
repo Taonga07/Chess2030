@@ -92,12 +92,12 @@ def layout_board(window, board):
     bttnclr=Rules.light_bttnlcr
     for column_number in range(0, len(board)):
         for row_number in range(0, len(board[column_number])):
-            try:
+            if board[row_number][column_number] == None:
+                square = tkinter.Label(window, text = "                 \n\n\n", bg = bttnclr)
+            else:
                 img = tkinter.PhotoImage(file = board[row_number][column_number].icon)
                 square = tkinter.Label(window, bg = bttnclr, image = img)
                 square.image = img
-            except:
-                square = tkinter.Label(window, text = "                 \n\n\n", bg = bttnclr)
 
             if bttnclr == "white":
                 bttnclr = "grey"
