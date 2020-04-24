@@ -18,7 +18,7 @@ def play_chess(window):
     destroy_all_widgets(window)
     menu(window)
     board = reset_board()
-    layout_board(window, board)
+    create_board(window, board)
 
 def menu(window):
     board = reset_board()
@@ -88,9 +88,10 @@ def reset_board():
         board.append(rowlist)
     return board
 
-def layout_board(window, board):
+def create_board(window, board):
     bttnclr=Rules.light_bttnlcr
     for column_number in range(0, len(board)):
+#        column_entry = []
         for row_number in range(0, len(board[column_number])):
             try:
                 img = tkinter.PhotoImage(file = board[row_number][column_number].icon)
@@ -105,71 +106,17 @@ def layout_board(window, board):
                 bttnclr = "white"
 
             square.grid(row = row_number, column = column_number)
-            square.bind("<Button-1>", on_click)
+#            square.bind("<Button-1>", on_click)
 
         if bttnclr == "white":
             bttnclr = "grey"
         else:
             bttnclr = "white"
             
-def on_click(event):
-#    global turn
-#    global window
-#    global onclick
-#    global old_colour
-#    global piece_to_move
-    Rules.onclick = Rules.onclick+1
-    square = event.widget
-    row_number = int(square.grid_info()["row"])
-    column_number  = int(square.grid_info()["column"])
-    try:
-        if ((Rules.onclick == 1 
-            and (
-                (Rules.turn == 0 and Chess.board[row_number][column_number].colour == 'white') 
-                or (Rules.turn == 1 and Chess.board[row_number][column_number].colour == 'black')
-            )) 
-            or Rules.onclick == 2
-            ):
-            currentText = square.cget("text")
-
-            if Rules.onclick == 1:
-                print('Where would you like to move your', Chess.board[row_number][column_number].piece, 'to?')
-                Rules.old_colour = Chess.board[row_number][column_number].colour
-                Rules.piece_to_move = row_number,column_number
-                return
-            else:
-                if Chess.board[row_number][column_number] == 0: #nothing at the square we're moving to
-                    if Chess.board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number):
-                        Chess.board[row_number][column_number] = Chess.board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]
-                        Chess.board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = 0
-                        layout_board(Chess.window, Chess.board)
-                        if Rules.turn == 0:
-                            Rules.turn = 1
-                        else:
-                            Rules.turn = 0
-
-                elif (isinstance(board[row_number][column_number], GameObject) and Rules.old_colour != board[row_number][column_number].colour):
-                    if board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number):
-                        board[row_number][column_number] = board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]
-                        board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = 0
-                        layout_board(Chess.window, Chess.board)
-                        if Rules.turn == 0:
-                            Rules.turn = 1
-                        else:
-                            Rules.turn = 0
-                else:
-                    print('you can not take your own piece')
-    except:
-        if Rules.onclick == 1:
-            print('No piece there, try again')
-        else:
-            print('an error has ocurred')
-        raise
-    Rules.onclick = 0
-      
 if __name__ =="__main__":
     set_up_window()
 
 # Globals #
 #could be replaced with Chess.________ 
 #______ being varible name
+
