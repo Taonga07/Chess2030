@@ -125,23 +125,23 @@ def on_click(event):
     try:
         if ((Rules.onclick == 1 
             and (
-                (Rules.turn == 0 and board[row_number][column_number].colour == 'white') 
-                or (Rules.turn == 1 and board[row_number][column_number].colour == 'black')
+                (Rules.turn == 0 and Chess.board[row_number][column_number].colour == 'white') 
+                or (Rules.turn == 1 and Chess.board[row_number][column_number].colour == 'black')
             )) 
             or Rules.onclick == 2
             ):
             currentText = square.cget("text")
 
             if Rules.onclick == 1:
-                print('Where would you like to move your', board[row_number][column_number].piece, 'to?')
-                Rules.old_colour = board[row_number][column_number].colour
+                print('Where would you like to move your', Chess.board[row_number][column_number].piece, 'to?')
+                Rules.old_colour = Chess.board[row_number][column_number].colour
                 Rules.piece_to_move = row_number,column_number
                 return
             else:
-                if board[row_number][column_number] == 0: #nothing at the square we're moving to
-                    if board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number):
-                        board[row_number][column_number] = board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]
-                        board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = 0
+                if Chess.board[row_number][column_number] == 0: #nothing at the square we're moving to
+                    if Chess.board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number):
+                        Chess.board[row_number][column_number] = Chess.board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]
+                        Chess.board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = 0
                         layout_board(Chess.window, Chess.board)
                         if Rules.turn == 0:
                             Rules.turn = 1
@@ -164,7 +164,7 @@ def on_click(event):
             print('No piece there, try again')
         else:
             print('an error has ocurred')
-            raise
+        raise
     Rules.onclick = 0
       
 if __name__ =="__main__":
@@ -173,4 +173,3 @@ if __name__ =="__main__":
 # Globals #
 #could be replaced with Chess.________ 
 #______ being varible name
-
