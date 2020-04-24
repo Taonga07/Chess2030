@@ -1,7 +1,11 @@
 import tkinter, Chess, Rules, File, os
 from tkinter import messagebox
 
+board = None
+window = None
+
 def set_up_window():
+    global window
     window = tkinter.Tk()
     window.title('chess')
     window.tk.call('wm', 'iconphoto', window._w, tkinter.PhotoImage(file = Rules.path +'icon.gif'))
@@ -16,13 +20,14 @@ def start(window):
     w.pack()
 
 def play_chess(window):
+    global board
     destroy_all_widgets(window)
     menu(window)
     board = reset_board()
     layout_board(window, board)
 
 def menu(window):
-    board = reset_board()
+#    board = reset_board()
 
     menubar = tkinter.Menu(window)
 
@@ -114,40 +119,35 @@ def layout_board(window, board):
             bttnclr = "white"
             
 def on_click(event):
-#    global turn
-#    global window
-#    global onclick
-#    global old_colour
-#    global piece_to_move
-
     Rules.onclick = Rules.onclick+1
     square = event.widget
     row_number = int(square.grid_info()["row"])
     column_number  = int(square.grid_info()["column"])
     try:
-        if ((Rules.onclick == 1 and ((Rules.turn == 0 and Chess.board[row_number][column_number].colour == 'white') or (Rules.turn == 1 and Chess.board[row_number][column_number].colour == 'black'))) or Rules.onclick == 2):
+        if ((Rules.onclick == 1 and ((Rules.turn == 0 and board[row_number][column_number].colour == 'white') or (Rules.turn == 1 and board[row_number][column_number].colour == 'black'))) or Rules.onclick == 2):
 
             if Rules.onclick == 1:
-                print('Where would you like to move your', Chess.board[row_number][column_number].piece, 'to?')
-                Rules.old_colour = Chess.board[row_number][column_number].colour
+                tkinter.messagebox.showinfo("Move Piece", "Where would you like to move your " + board[row_number][column_number].piece + " to!")
+                print('Where would you like to move your', board[row_number][column_number].piece, 'to?')
+                Rules.old_colour = board[row_number][column_number].colour
                 Rules.piece_to_move = row_number,column_number
                 return
             else:
-                if Chess.board[row_number][column_number] == 0: #nothing at the square we're moving to
-                    if Chess.board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number):
-                        Chess.board[row_number][column_number] = Chess.board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]
-                        Chess.board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = 0
-                        layout_board(Chess.window, Chess.board)
+                if board[row_number][column_number] == 0: #nothing at the square we're moving to
+                    if board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number):
+                        board[row_number][column_number] = board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]
+                        board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = 0
+                        layout_board(window, board)
                         if Rules.turn == 0:
                             Rules.turn = 1
                         else:
                             Rules.turn = 0
 
-                elif (isinstance(board[row_number][column_number], GameObject) and Rules.old_colour != board[row_number][column_number].colour):
+                elif (isinstance(board[row_number][column_number], Rules.GameObject) and Rules.old_colour != board[row_number][column_number].colour):
                     if board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number):
                         board[row_number][column_number] = board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]
                         board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = 0
-                        layout_board(Chess.window, Chess.board)
+                        layout_board(window, board)
                         if Rules.turn == 0:
                             Rules.turn = 1
                         else:
