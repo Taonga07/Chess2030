@@ -117,3 +117,5 @@ def layout_board(window, board):
 #could be replaced with Chess.________ 
 #______ being varible name
 
+if __name__ =="__main__":
+    set_up_window()
