@@ -105,7 +105,7 @@ def layout_board(window, board):
             else:
                 bttnclr = "white"
 
-            square.grid(row = row_number, column = column_number)
+            square.grid(row = row_number, column = column_number, sticky = tkinter.N+tkinter.S+tkinter.W+tkinter.E)
             square.bind("<Button-1>", on_click)
 
         if bttnclr == "white":
