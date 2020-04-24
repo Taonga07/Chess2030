@@ -99,12 +99,24 @@ def create_board(window, board):
                 square.image = img
             except:
                 square = tkinter.Label(window, text = "                 \n\n\n", bg = bttnclr)
-                square.grid(row = row_number, column = column_number)
-            if bttnclr == Rules.light_bttnlcr:
-                bttnclr = Rules.dark_bttnlcr
+
+            if bttnclr == "white":
+                bttnclr = "grey"
+            else:
+                bttnclr = "white"
+
+            square.grid(row = row_number, column = column_number)
+#            square.bind("<Button-1>", on_click)
+
+        if bttnclr == "white":
+            bttnclr = "grey"
+        else:
+            bttnclr = "white"
+            
 if __name__ =="__main__":
     set_up_window()
 
 # Globals #
 #could be replaced with Chess.________ 
 #______ being varible name
+
