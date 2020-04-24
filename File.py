@@ -3,16 +3,23 @@ from tkinter import filedialog
 import tkinter, Chess, os
 
 def onOpen(window, board):
-    Open = filedialog.askopenfilename(initialdir = "/",title = "Open file",filetypes = (("main files","*txt*"),("All files","*.*")))
-    f = open(Open,"r")
-    Chess.board = f.read()
-    Chess.create_board(window, board)
+    try:
+        Open = filedialog.askopenfilename(initialdir = "/",title = "Open file",filetypes = (("main files","*txt*"),("All files","*.*")))
+        f = open(Open,"r")
+        Chess.board = f.read()
+        Chess.create_board(window, board)
+    except:
+        tkinter.messagebox.showerror("Error","This is not possible!")
 
 def onSave(board):
-    Save = filedialog.asksaveasfilename(initialdir = "/",title = "Save as",filetypes = (("main files","*txt*"),("All files","*.*")))
-    file = open(Save,"w+")
-    file.write(board)
-    file.close() 
+    try:
+        Save = filedialog.asksaveasfilename(initialdir = "/",title = "Save as",filetypes = (("main files","*txt*"),("All files","*.*")))
+        file = open(Save,"w+")
+        file.write(board)
+        file.close()
+    except:
+        tkinter.messagebox.showerror("Error","This is not possible!")
+
 
 def openGuide():
     try:
