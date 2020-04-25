@@ -127,7 +127,7 @@ def on_click(event):
         if ((Rules.onclick == 1 and ((Rules.turn == 0 and board[row_number][column_number].colour == 'white') or (Rules.turn == 1 and board[row_number][column_number].colour == 'black'))) or Rules.onclick == 2):
 
             if Rules.onclick == 1:
-                tkinter.messagebox.showinfo("Move Piece", "Where would you like to move your " + board[row_number][column_number].piece + " to!")
+                tkinter.messagebox.showinfo("Move Piece", "+Where would you like to move your " + board[row_number][column_number].piece + " to!")
                 print('Where would you like to move your', board[row_number][column_number].piece, 'to?')
                 Rules.old_colour = board[row_number][column_number].colour
                 Rules.piece_to_move = row_number,column_number
