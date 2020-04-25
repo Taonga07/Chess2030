@@ -1,4 +1,4 @@
-import tkinter, Chess, Rules, File, os
+import tkinter, Rules, File, os
 from tkinter import messagebox
 
 board = None
@@ -98,11 +98,11 @@ def layout_board(window, board):
     bttnclr=Rules.light_bttnlcr
     for column_number in range(0, len(board)):
         for row_number in range(0, len(board[column_number])):
-            try:
+            if board[row_number][column_number] == None:
                 img = tkinter.PhotoImage(file = board[row_number][column_number].icon)
                 square = tkinter.Label(window, bg = bttnclr, image = img)
                 square.image = img
-            except:
+            else:
                 square = tkinter.Label(window, text = "                 \n\n\n", bg = bttnclr)
 
             if bttnclr == "white":
@@ -119,15 +119,17 @@ def layout_board(window, board):
             bttnclr = "white"
             
 def on_click(event):
-    Rules.onclick = Rules.onclick+1
     square = event.widget
+    Rules.onclick = Rules.onclick+1
     row_number = int(square.grid_info()["row"])
+#    board[row_number][column_number] = board[row_number][column_number]
     column_number  = int(square.grid_info()["column"])
     try:
         if ((Rules.onclick == 1 and ((Rules.turn == 0 and board[row_number][column_number].colour == 'white') or (Rules.turn == 1 and board[row_number][column_number].colour == 'black'))) or Rules.onclick == 2):
 
             if Rules.onclick == 1:
-                tkinter.messagebox.showinfo("Move Piece", "+Where would you like to move your " + board[row_number][column_number].piece + " to!")
+                square.config(bg='blue')
+                tkinter.messagebox.showinfo("Move Piece", "Where would you like to move your " + board[row_number][column_number].piece + " to!")
                 print('Where would you like to move your', board[row_number][column_number].piece, 'to?')
                 Rules.old_colour = board[row_number][column_number].colour
                 Rules.piece_to_move = row_number,column_number
@@ -154,12 +156,12 @@ def on_click(event):
                             Rules.turn = 0
                     else:
                         mssg = 'This move is not allowed'
-                        tkinter.messagebox.showinfo("Move Not Possible",mssg)
+                        tkinter.messagebox.showinfo("Move Not board[row_number][column_number]sible",mssg)
                 else:
-                    tkinter.messagebox.showinfo("Move Not Possible", "You can not take your own piece!")
+                    tkinter.messagebox.showinfo("Move Not board[row_number][column_number]sible", "You can not take your own piece!")
     except:
         if Rules.onclick == 1:
-            tkinter.messagebox.showinfo("Move Not Possible","Your/No piece there, try again")
+            tkinter.messagebox.showinfo("Move Not board[row_number][column_number]sible","Your/No piece there, try again")
         else:
             tkinter.messagebox.showerror("Error","An error has ocurred!")
         raise
