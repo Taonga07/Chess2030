@@ -118,6 +118,10 @@ def layout_board(window, board):
         else:
             bttnclr = "white"
 
+    mssg = 'hello'
+    messageLabel = tkinter.Label(window, text = mssg
+    messageLabel.grid(row=9, column=0, sticky = tkinter.N+tkinter.S+tkinter.W+tkinter.E)
+
 def on_click(event):
     square = event.widget
     Rules.onclick = Rules.onclick+1
