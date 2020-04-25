@@ -99,11 +99,11 @@ def layout_board(window, board):
     for column_number in range(0, len(board)):
         for row_number in range(0, len(board[column_number])):
             if board[row_number][column_number] == None:
+                square = tkinter.Label(window, text = "                 \n\n\n", bg = bttnclr)
+            else:
                 img = tkinter.PhotoImage(file = board[row_number][column_number].icon)
                 square = tkinter.Label(window, bg = bttnclr, image = img)
                 square.image = img
-            else:
-                square = tkinter.Label(window, text = "                 \n\n\n", bg = bttnclr)
 
             if bttnclr == "white":
                 bttnclr = "grey"
@@ -117,7 +117,7 @@ def layout_board(window, board):
             bttnclr = "grey"
         else:
             bttnclr = "white"
-            
+
 def on_click(event):
     square = event.widget
     Rules.onclick = Rules.onclick+1
@@ -125,8 +125,7 @@ def on_click(event):
 #    board[row_number][column_number] = board[row_number][column_number]
     column_number  = int(square.grid_info()["column"])
     try:
-        if ((Rules.onclick == 1 and ((Rules.turn == 0 and board[row_number][column_number].colour == 'white') or (Rules.turn == 1 and board[row_number][column_number].colour == 'black'))) or Rules.onclick == 2):
-
+        if ((Rules.onclick == 1 and ((Rules.turn == 0 and board[row_number][column_number].colour == 'white') or (Rules.turn == 1 and board[row_number][column_number].colour == 'black'))) or Rules.onclick == 2):            
             if Rules.onclick == 1:
                 square.config(bg='blue')
                 tkinter.messagebox.showinfo("Move Piece", "Where would you like to move your " + board[row_number][column_number].piece + " to!")
@@ -156,12 +155,12 @@ def on_click(event):
                             Rules.turn = 0
                     else:
                         mssg = 'This move is not allowed'
-                        tkinter.messagebox.showinfo("Move Not board[row_number][column_number]sible",mssg)
+                        tkinter.messagebox.showinfo("Move Not Allowed", mssg)
                 else:
-                    tkinter.messagebox.showinfo("Move Not board[row_number][column_number]sible", "You can not take your own piece!")
+                    tkinter.messagebox.showinfo("Move Not Allowed", "You can not take your own piece!")
     except:
         if Rules.onclick == 1:
-            tkinter.messagebox.showinfo("Move Not board[row_number][column_number]sible","Your/No piece there, try again")
+            tkinter.messagebox.showinfo("Move Not Allowed]","Your/No piece there, try again")
         else:
             tkinter.messagebox.showerror("Error","An error has ocurred!")
         raise
