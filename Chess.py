@@ -1,6 +1,7 @@
 import tkinter, Rules, File, os
 from tkinter import messagebox
 
+mssg = None
 board = None
 window = None
 
@@ -118,11 +119,21 @@ def layout_board(window, board):
         else:
             bttnclr = "white"
 
-    mssg = 'hello'
-    messageLabel = tkinter.Label(window, text = mssg
-    messageLabel.grid(row=9, column=0, sticky = tkinter.N+tkinter.S+tkinter.W+tkinter.E)
+    messageLabel = tkinter.Label(window, text = mssg)
+    messageLabel.grid(row=9, column=3 , columnspan = 5, sticky = tkinter.N+tkinter.S+tkinter.W+tkinter.E)
 
+    mssg_turn = ''
+
+    if Rules.turn == 0:
+        mssg_turn  = 'White\'s Move'
+    else:
+        mssg_turn  = 'Black\'s Move'  
+    
+    turnLabel = tkinter.Label(window, text = mssg_turn)
+    turnLabel.grid(row=9, column=0 , columnspan = 2, sticky = tkinter.N+tkinter.S+tkinter.W+tkinter.E)
+    
 def on_click(event):
+    global mssg
     square = event.widget
     Rules.onclick = Rules.onclick+1
     row_number = int(square.grid_info()["row"])
@@ -132,7 +143,8 @@ def on_click(event):
         if ((Rules.onclick == 1 and ((Rules.turn == 0 and piece_clicked.colour == 'white') or (Rules.turn == 1 and piece_clicked.colour == 'black'))) or Rules.onclick == 2):            
             if Rules.onclick == 1:
                 square.config(bg='blue')
-                tkinter.messagebox.showinfo("Move Piece", "Where would you like to move your " + piece_clicked.piece + " to!")
+                mssg = "Where would you like to move your " + piece_clicked.piece + " to!"
+#                tkinter.messagebox.showinfo("Move Piece", "Where would you like to move your " + piece_clicked.piece + " to!")
                 Rules.old_colour = piece_clicked.colour
                 Rules.piece_to_move = row_number,column_number
                 return
@@ -161,13 +173,17 @@ def on_click(event):
                         tkinter.messagebox.showinfo("Move Not Allowed", mssg)
                 else:
                     tkinter.messagebox.showinfo("Move Not Allowed", "You can not take your own piece!")
+                    mssg = "You can not take your own piece!"
     except:
         if Rules.onclick == 1:
             tkinter.messagebox.showinfo("Move Not Allowed]","Your/No piece there, try again")
+            mssg = 'Your/No piece there, try again'
         else:
             tkinter.messagebox.showerror("Error","An error has ocurred!")
+            mssg = "An error has ocurred!"
         raise
     Rules.onclick = 0
+
 
 if __name__ =="__main__":
     set_up_window()
