@@ -122,32 +122,31 @@ def on_click(event):
     square = event.widget
     Rules.onclick = Rules.onclick+1
     row_number = int(square.grid_info()["row"])
-#    board[row_number][column_number] = board[row_number][column_number]
     column_number  = int(square.grid_info()["column"])
+    piece_clicked= board[row_number][column_number]
     try:
-        if ((Rules.onclick == 1 and ((Rules.turn == 0 and board[row_number][column_number].colour == 'white') or (Rules.turn == 1 and board[row_number][column_number].colour == 'black'))) or Rules.onclick == 2):            
+        if ((Rules.onclick == 1 and ((Rules.turn == 0 and piece_clicked.colour == 'white') or (Rules.turn == 1 and piece_clicked.colour == 'black'))) or Rules.onclick == 2):            
             if Rules.onclick == 1:
                 square.config(bg='blue')
-                tkinter.messagebox.showinfo("Move Piece", "Where would you like to move your " + board[row_number][column_number].piece + " to!")
-                print('Where would you like to move your', board[row_number][column_number].piece, 'to?')
-                Rules.old_colour = board[row_number][column_number].colour
+                tkinter.messagebox.showinfo("Move Piece", "Where would you like to move your " + piece_clicked.piece + " to!")
+                Rules.old_colour = piece_clicked.colour
                 Rules.piece_to_move = row_number,column_number
                 return
             else:
-                if board[row_number][column_number] == 0: #nothing at the square we're moving to
+                if piece_clicked == None: #nothing at the square we're moving to
                     if board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number):
                         board[row_number][column_number] = board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]
-                        board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = 0
+                        board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = None
                         layout_board(window, board)
                         if Rules.turn == 0:
                             Rules.turn = 1
                         else:
                             Rules.turn = 0
 
-                elif (isinstance(board[row_number][column_number], Rules.GameObject) and Rules.old_colour != board[row_number][column_number].colour):
+                elif (isinstance(piece_clicked, Rules.GameObject) and Rules.old_colour != piece_clicked.colour):
                     if board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number):
                         board[row_number][column_number] = board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]
-                        board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = 0
+                        board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = None
                         layout_board(window, board)
                         if Rules.turn == 0:
                             Rules.turn = 1
