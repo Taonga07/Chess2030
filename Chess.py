@@ -1,7 +1,6 @@
 import tkinter, Rules, File, os
 from tkinter import messagebox
 
-mssg = None
 board = None
 window = None
 
@@ -78,6 +77,11 @@ def destroy_all_widgets(window):
         if widget.winfo_class() != 'menubar':
             widget.destroy()
 
+def mssg_bar(window, mssg):
+    messageLabel = tkinter.Label(window, text = mssg)
+    messageLabel.grid(row=9, column=3 , columnspan = 5, sticky = tkinter.N+tkinter.S+tkinter.W+tkinter.E)
+
+
 def reset_board():
     board = []
     for row in range(0,8):
@@ -119,21 +123,19 @@ def layout_board(window, board):
         else:
             bttnclr = "white"
 
-    messageLabel = tkinter.Label(window, text = mssg)
-    messageLabel.grid(row=9, column=3 , columnspan = 5, sticky = tkinter.N+tkinter.S+tkinter.W+tkinter.E)
-
     mssg_turn = ''
+    mssg = ''
 
     if Rules.turn == 0:
         mssg_turn  = 'White\'s Move'
     else:
         mssg_turn  = 'Black\'s Move'  
     
+    mssg_bar(window, mssg)
     turnLabel = tkinter.Label(window, text = mssg_turn)
     turnLabel.grid(row=9, column=0 , columnspan = 2, sticky = tkinter.N+tkinter.S+tkinter.W+tkinter.E)
     
 def on_click(event):
-    global mssg
     square = event.widget
     Rules.onclick = Rules.onclick+1
     row_number = int(square.grid_info()["row"])
@@ -147,40 +149,46 @@ def on_click(event):
 #                tkinter.messagebox.showinfo("Move Piece", "Where would you like to move your " + piece_clicked.piece + " to!")
                 Rules.old_colour = piece_clicked.colour
                 Rules.piece_to_move = row_number,column_number
+                mssg_bar(window, mssg)
                 return
             else:
                 if piece_clicked == None: #nothing at the square we're moving to
                     if board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number):
                         board[row_number][column_number] = board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]
                         board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = None
-                        layout_board(window, board)
                         if Rules.turn == 0:
                             Rules.turn = 1
                         else:
                             Rules.turn = 0
+                        
+                        layout_board(window, board)
 
                 elif (isinstance(piece_clicked, Rules.GameObject) and Rules.old_colour != piece_clicked.colour):
                     if board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number):
                         board[row_number][column_number] = board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]
                         board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = None
-                        layout_board(window, board)
                         if Rules.turn == 0:
                             Rules.turn = 1
                         else:
                             Rules.turn = 0
+                        layout_board(window, board)  
                     else:
-                        mssg = 'This move is not allowed'
                         tkinter.messagebox.showinfo("Move Not Allowed", mssg)
+                        mssg = 'This move is not allowed'
+                        mssg_bar(window, mssg)
                 else:
                     tkinter.messagebox.showinfo("Move Not Allowed", "You can not take your own piece!")
                     mssg = "You can not take your own piece!"
+                    mssg_bar(window, mssg)
     except:
         if Rules.onclick == 1:
             tkinter.messagebox.showinfo("Move Not Allowed]","Your/No piece there, try again")
             mssg = 'Your/No piece there, try again'
+            mssg_bar(window, mssg)
         else:
             tkinter.messagebox.showerror("Error","An error has ocurred!")
             mssg = "An error has ocurred!"
+            mssg_bar(window, mssg)
         raise
     Rules.onclick = 0
 
