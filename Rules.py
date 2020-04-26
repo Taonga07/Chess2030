@@ -16,7 +16,18 @@ class Pawn(GameObject):
 #        self.value = 1
 
     def check_move(self, new_row_number,new_column_number):
-        return True
+        if old_row_number == 2:
+            if (old_row_number+1 or old_row_number+2) == new_row_number:
+                return True
+            else:
+                Chess.mssg = 'Pawns can oly move forwards'
+                return False
+        else:
+            if  old_row_number+2 == new_row_number:
+                return True
+            else:
+                Chess.mssg = 'Pawns can oly move forwards'
+                return False
 
 class Rook(GameObject):
     def __init__(self, piece, icon, colour, column, row):
