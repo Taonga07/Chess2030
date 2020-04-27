@@ -15,15 +15,16 @@ class Pawn(GameObject):
         self.piece = 'Pawn'
 #        self.value = 1
 
-    def check_move(self, new_row_number,new_column_number):
-        if old_row_number == 2:
-            if (old_row_number+1 or old_row_number+2) == new_row_number:
+    def check_move(self, row_number, column_number, piece_to_move):
+        #if white
+        if piece_to_move[0] == 2:
+            if (piece_to_move[0]+1 or piece_to_move[0]+2) == row_number:
                 return True
             else:
                 Chess.mssg = 'Pawns can oly move forwards'
                 return False
         else:
-            if  old_row_number+2 == new_row_number:
+            if  piece_to_move[1]+2 == row_number:
                 return True
             else:
                 Chess.mssg = 'Pawns can oly move forwards'
