@@ -146,43 +146,44 @@ def on_click(event):
             if Rules.onclick == 1:
                 square.config(bg='blue')
                 mssg = "Where would you like to move your " + piece_clicked.piece + " to!"
-#                tkinter.messagebox.showinfo("Move Piece", "Where would you like to move your " + piece_clicked.piece + " to!")
                 Rules.old_colour = piece_clicked.colour
                 Rules.piece_to_move = row_number,column_number
                 mssg_bar(window, mssg)
                 return
             else:
                 if piece_clicked == None: #nothing at the square we're moving to
-                    if board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number):
-                        board[row_number][column_number] = board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]
-                        board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = None
-                        if Rules.turn == 0:
-                            Rules.turn = 1
-                        else:
-                            Rules.turn = 0
-                        
-                        layout_board(window, board)
-
-                elif (isinstance(piece_clicked, Rules.GameObject) and Rules.old_colour != piece_clicked.colour):
-                    if board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number):
-                        board[row_number][column_number] = board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]
-                        board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = None
-                        if Rules.turn == 0:
-                            Rules.turn = 1
-                        else:
-                            Rules.turn = 0
-                        layout_board(window, board)  
+                    move_piece = True
+                else:#click a square with piece on
+                    if (isinstance(piece_clicked, Rules.GameObject) and Rules.old_colour != piece_clicked.colour): # check were not tacking the same colour piece
+                        move_piece = True
                     else:
-                        tkinter.messagebox.showinfo("Move Not Allowed", mssg)
-                        mssg = 'This move is not allowed'
+                        tkinter.messagebox.showinfo("Move Not Allowed", "You can not take your own piece!")
+                        mssg = "You can not take your own piece!"
+                        layout_board(window, board)
                         mssg_bar(window, mssg)
-                else:
-                    tkinter.messagebox.showinfo("Move Not Allowed", "You can not take your own piece!")
-                    mssg = "You can not take your own piece!"
-                    mssg_bar(window, mssg)
+
+                if move_piece == True:
+                    if board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number, Rules.piece_to_move) == True : #checks rules ## did not have == True on end
+                         board[row_number][column_number] = board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]#moves piece there
+                         board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = None # sets square was at to None
+                        #change turn
+                         if Rules.turn == 0:
+                             Rules.turn = 1
+                         else:
+                             Rules.turn = 0
+                         
+                    else:
+                        mssg = 'This move is not allowed'
+                        tkinter.messagebox.showinfo("Move Not Allowed]", mssg)
+                        mssg_bar(window, mssg)
+                        layout_board(window, board) # tkinter grid to board list
+                    # stop
+                    move_piece = False
+               
     except:
         if Rules.onclick == 1:
             tkinter.messagebox.showinfo("Move Not Allowed]","Your/No piece there, try again")
+            layout_board(window, board) # tkinter grid to board list
             mssg = 'Your/No piece there, try again'
             mssg_bar(window, mssg)
         else:
