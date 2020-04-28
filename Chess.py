@@ -1,6 +1,11 @@
-import tkinter, Chess, Rules, File, os
+import tkinter, Rules, File, os
+from tkinter import messagebox
+
+board = None
+window = None
 
 def set_up_window():
+    global window
     window = tkinter.Tk()
     window.title('chess')
     window.tk.call('wm', 'iconphoto', window._w, tkinter.PhotoImage(file = Rules.path +'icon.gif'))
@@ -15,13 +20,14 @@ def start(window):
     w.pack()
 
 def play_chess(window):
+    global board
     destroy_all_widgets(window)
     menu(window)
     board = reset_board()
     layout_board(window, board)
 
 def menu(window):
-    board = reset_board()
+#    board = reset_board()
 
     menubar = tkinter.Menu(window)
 
@@ -71,6 +77,11 @@ def destroy_all_widgets(window):
         if widget.winfo_class() != 'menubar':
             widget.destroy()
 
+def mssg_bar(window, mssg):
+    messageLabel = tkinter.Label(window, text = mssg)
+    messageLabel.grid(row=9, column=3 , columnspan = 5, sticky = tkinter.N+tkinter.S+tkinter.W+tkinter.E)
+
+
 def reset_board():
     board = []
     for row in range(0,8):
@@ -104,18 +115,87 @@ def layout_board(window, board):
             else:
                 bttnclr = "white"
 
-            square.grid(row = row_number, column = column_number)
-#            square.bind("<Button-1>", on_click)
+            square.grid(row = row_number, column = column_number, sticky = tkinter.N+tkinter.S+tkinter.W+tkinter.E)
+            square.bind("<Button-1>", on_click)
 
         if bttnclr == "white":
             bttnclr = "grey"
         else:
             bttnclr = "white"
-            
+
+    mssg_turn = ''
+    mssg = ''
+
+    if Rules.turn == 0:
+        mssg_turn  = 'White\'s Move'
+    else:
+        mssg_turn  = 'Black\'s Move'  
+    
+    mssg_bar(window, mssg)
+    turnLabel = tkinter.Label(window, text = mssg_turn)
+    turnLabel.grid(row=9, column=0 , columnspan = 2, sticky = tkinter.N+tkinter.S+tkinter.W+tkinter.E)
+    
+def on_click(event):
+    square = event.widget
+    Rules.onclick = Rules.onclick+1
+    row_number = int(square.grid_info()["row"])
+    column_number  = int(square.grid_info()["column"])
+    piece_clicked= board[row_number][column_number]
+    try:
+        if ((Rules.onclick == 1 and ((Rules.turn == 0 and piece_clicked.colour == 'white') or (Rules.turn == 1 and piece_clicked.colour == 'black'))) or Rules.onclick == 2):            
+            if Rules.onclick == 1:
+                square.config(bg='blue')
+                mssg = "Where would you like to move your " + piece_clicked.piece + " to!"
+#                tkinter.messagebox.showinfo("Move Piece", "Where would you like to move your " + piece_clicked.piece + " to!")
+                Rules.old_colour = piece_clicked.colour
+                Rules.piece_to_move = row_number,column_number
+                mssg_bar(window, mssg)
+                return
+            else:
+                if piece_clicked == None: #nothing at the square we're moving to
+                    if board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number):
+                        board[row_number][column_number] = board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]
+                        board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = None
+                        if Rules.turn == 0:
+                            Rules.turn = 1
+                        else:
+                            Rules.turn = 0
+                        
+                        layout_board(window, board)
+
+                elif (isinstance(piece_clicked, Rules.GameObject) and Rules.old_colour != piece_clicked.colour):
+                    if board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number):
+                        board[row_number][column_number] = board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]
+                        board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = None
+                        if Rules.turn == 0:
+                            Rules.turn = 1
+                        else:
+                            Rules.turn = 0
+                        layout_board(window, board)  
+                    else:
+                        tkinter.messagebox.showinfo("Move Not Allowed", mssg)
+                        mssg = 'This move is not allowed'
+                        mssg_bar(window, mssg)
+                else:
+                    tkinter.messagebox.showinfo("Move Not Allowed", "You can not take your own piece!")
+                    mssg = "You can not take your own piece!"
+                    mssg_bar(window, mssg)
+    except:
+        if Rules.onclick == 1:
+            tkinter.messagebox.showinfo("Move Not Allowed]","Your/No piece there, try again")
+            mssg = 'Your/No piece there, try again'
+            mssg_bar(window, mssg)
+        else:
+            tkinter.messagebox.showerror("Error","An error has ocurred!")
+            mssg = "An error has ocurred!"
+            mssg_bar(window, mssg)
+        raise
+    Rules.onclick = 0
+
+
+if __name__ =="__main__":
+    set_up_window()
 
 # Globals #
 #could be replaced with Chess.________ 
 #______ being varible name
-
-if __name__ =="__main__":
-    set_up_window()
