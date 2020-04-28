@@ -17,7 +17,7 @@ class Pawn(GameObject):
 
     def check_move(self, row_number, column_number, piece_to_move, turn):
         if turn == 0: #if white
-            if piece_to_move[0] == 6:
+            if piece_to_move[0] == 6: #if white piece first go
                 if piece_to_move[0]-1 or piece_to_move[0]-2 == row_number:
                     return True
                 else:
@@ -30,13 +30,13 @@ class Pawn(GameObject):
                     mssg = 'Pawns can only move forwards'
                     return mssg
         else: #blacks turn
-            if piece_to_move[0] == 1:
+            if piece_to_move[0] == 1: #if blacks piece first go
                 if piece_to_move[0]+1 or piece_to_move[0]+2 == row_number:
                     return True
                 else:
                     mssg = 'Pawns can only move forwards'
                     return mssg
-            else:
+            else: #not first go 
                 if piece_to_move[1]+1 == row_number:
                     return True
                 else:
