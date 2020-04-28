@@ -15,17 +15,14 @@ class Pawn(GameObject):
         self.piece = 'Pawn'
 #        self.value = 1
 
-    def check_move(self, row_number, column_number, piece_to_move):
-        #if white
-        if piece_to_move[0] == 2:
-            if (piece_to_move[0]+1 or piece_to_move[0]+2) == row_number:
-                return True
-            else:
-                Chess.mssg = 'Pawns can oly move forwards'
-                return False
-        else:
-            if  piece_to_move[1]+2 == row_number:
-                return True
+    def check_move(self, row_number, column_number, piece_to_move, turn):
+        if turn == 0: #if white
+            if piece_to_move[0] == 6:
+                if (piece_to_move[0]-1 or piece_to_move[0]-2) == row_number:
+                    return True
+                else:
+                    mssg = 'Pawns can oly move forwards'
+                    return mssg
             else:
                 if piece_to_move[1]-1 == row_number:
                     return True
@@ -43,7 +40,7 @@ class Pawn(GameObject):
                 if piece_to_move[1]+1 == row_number:
                     return True
                 else:
-                    mssg = 'Pawns can only move forwards'
+                    mssg = 'Pawns can only move forwards once'
                     return mssg
 class Rook(GameObject):
     def __init__(self, piece, icon, colour, column, row):
