@@ -178,6 +178,8 @@ def on_click(event):
                     # stop
                     move_piece = False
 
+        layout_board(window, board) # tkinter grid to board list
+
     except:
         if Rules.onclick == 1:
             tkinter.messagebox.showinfo("Move Not Allowed","Your/No piece there, try again")
@@ -189,7 +191,6 @@ def on_click(event):
             mssg_bar(window, mssg)
         raise
     Rules.onclick = 0
-    layout_board(window, board) # tkinter grid to board list
 
 
 
