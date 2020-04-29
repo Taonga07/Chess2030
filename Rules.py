@@ -20,7 +20,8 @@ class Pawn(GameObject):
         #self.first_turn = True
 
     def check_move(self, row_number, column_number, piece_to_move, turn):
-    #def check_move(self, new_row, new_column)
+    #def check_move(self, piece_to_move, attacking)
+        #new_row, new_column = piece_to_move
         # you already know what colour your chess piece is
         # it's saved in self.colour - and you only call the check_move() function
         # if it's that colour's turn
@@ -36,8 +37,17 @@ class Pawn(GameObject):
                         # or we just move one square (doesn't matter first move or not)
                         #abs(self.row - new_row) == 1 
                         #)
-                        # and we don't change column
-                        #and self.column == new_column:
+                        # and we're going in the right direction
+                        #and (
+                            #(self.colour == 'white' and self.row - new_row > 0)
+                            #or
+                            #(self.colour == 'black' and self.row - new_row < 0)
+                        # )
+                        # and we don't change column - check for attacking
+                        #and (
+                            #self.column == new_column or
+                            #(attacking and abs(self.column - new_column = 1)
+                            # ):
                     # abs returns the absolute value without + or - so abs(1-3) = 2 and abs(6-4) = 2
                     # you don't care which direction the piece is moving, only that it's moving 2 or less on the first go
                     # if all the above is True then we have a valid move
