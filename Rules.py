@@ -14,14 +14,45 @@ class Pawn(GameObject):
         super().__init__(piece, icon, colour, column, row, 1)
         self.piece = 'Pawn'
 #        self.value = 1
+        # this is a comment, with the space before the text
+        #this = code
+        # I would add a variable here
+        #self.first_turn = True
 
     def check_move(self, row_number, column_number, piece_to_move, turn):
+    #def check_move(self, new_row, new_column)
+        # you already know what colour your chess piece is
+        # it's saved in self.colour - and you only call the check_move() function
+        # if it's that colour's turn
+        # I assume that row_number and column_number are the row and column you are moving to
+        # we already know the row and column we are on self.row and self.column
         if turn == 0: #if white
             if piece_to_move[0] == 6: #if whites piece first go
-                if ((piece_to_move[0]-1 or piece_to_move[0]-2) == row_number) and (piece_to_move[1] == column_number):
-                    print('fist go')
-                    return True
+                # we probably don't need lines 27 & 28, I'm going to split the next code bit over several lines, but it's all one code
+                #if (
+                    # if it's our first move, and we move 2
+                    #( self.first_move and (abs(self.row - new_row) == 2) )
+                        #or 
+                        # or we just move one square (doesn't matter first move or not)
+                        #abs(self.row - new_row) == 1 
+                        #)
+                        # and we don't change column
+                        #and self.column == new_column:
+                    # abs returns the absolute value without + or - so abs(1-3) = 2 and abs(6-4) = 2
+                    # you don't care which direction the piece is moving, only that it's moving 2 or less on the first go
+                    # if all the above is True then we have a valid move
+                    # you could check the state of self.first_move, but to be honest, it's probably not worth it
+                    #self.first_move = False
+                    #return True
+                #don't need this code
+                #if ((piece_to_move[0]-1 or piece_to_move[0]-2) == row_number) and (piece_to_move[1] == column_number):
+                #    print('first go')
+                #    return True
                 else:
+                    # I'd just
+                    #return False
+                    # and let your main code print the 'invalid move' statement
+# you don't need any of this code
                     mssg = 'Pawns can only move forwards'
                     return mssg
             else: #not first go 
@@ -43,6 +74,8 @@ class Pawn(GameObject):
                 else:
                     mssg = 'Pawns can only move forwards once'
                     return mssg
+#down to here
+
 class Rook(GameObject):
     def __init__(self, piece, icon, colour, column, row):
         super().__init__(piece, icon, colour, column, row, 4)
