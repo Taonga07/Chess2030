@@ -1,6 +1,11 @@
-import tkinter, Chess, Rules, File, os
+import tkinter, Rules, File, os
+from tkinter import messagebox
+
+board = None
+window = None
 
 def set_up_window():
+    global window
     window = tkinter.Tk()
     window.title('chess')
     window.tk.call('wm', 'iconphoto', window._w, tkinter.PhotoImage(file = Rules.path +'icon.gif'))
@@ -15,13 +20,14 @@ def start(window):
     w.pack()
 
 def play_chess(window):
+    global board
     destroy_all_widgets(window)
     menu(window)
     board = reset_board()
-    create_board(window, board)
+    layout_board(window, board)
 
 def menu(window):
-    board = reset_board()
+#    board = reset_board()
 
     menubar = tkinter.Menu(window)
 
@@ -71,6 +77,11 @@ def destroy_all_widgets(window):
         if widget.winfo_class() != 'menubar':
             widget.destroy()
 
+def mssg_bar(window, mssg):
+    messageLabel = tkinter.Label(window, text = mssg)
+    messageLabel.grid(row=9, column=3 , columnspan = 5, sticky = tkinter.N+tkinter.S+tkinter.W+tkinter.E)
+
+
 def reset_board():
     board = []
     for row in range(0,8):
@@ -88,7 +99,7 @@ def reset_board():
         board.append(rowlist)
     return board
 
-def create_board(window, board):
+def layout_board(window, board):
     bttnclr=Rules.light_bttnlcr
     for column_number in range(0, len(board)):
 #        column_entry = []

@@ -1,4 +1,4 @@
-import os
+import Chess, os
 
 class GameObject():
     def __init__(self, piece, icon, colour, column, row, value):
@@ -63,7 +63,6 @@ class Knight(GameObject):
     def check_move(self, new_row_number,new_column_number):
         return True
 
-
 # our varibles/lists
 
 path = os.getcwd() + '/Chess_Resources/'
@@ -72,3 +71,8 @@ pieces = ['Rook', 'Bishop', 'Knight', 'Queen', 'King', 'Knight', 'Bishop', 'Rook
 
 light_bttnlcr ='white'
 dark_bttnlcr = 'black'
+
+turn = 0
+onclick = 0
+piece_to_move = (0) 
+old_colour = 'white'
