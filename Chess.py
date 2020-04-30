@@ -137,17 +137,20 @@ def layout_board(window, board):
     
 def on_click(event):
     square = event.widget
-    Rules.onclick = Rules.onclick+1
+    Rules.onclick += 1 # a bit tidier than rules.onclick = rules.onclick + 1
     row_number = int(square.grid_info()["row"])
     column_number  = int(square.grid_info()["column"])
-    piece_clicked= board[row_number][column_number]
+    # lets save our row and column numbers in a tuple here, rather than in several places
+    square_clicked = (row_number, column_number)
+    piece_clicked = board[row_number][column_number]
     try:
         if ((Rules.onclick == 1 and ((Rules.turn == 0 and piece_clicked.colour == 'white') or (Rules.turn == 1 and piece_clicked.colour == 'black'))) or Rules.onclick == 2):            
             if Rules.onclick == 1:
                 square.config(bg='blue')
                 mssg = "Where would you like to move your " + piece_clicked.piece + " to!"
                 Rules.old_colour = piece_clicked.colour
-                Rules.piece_to_move = row_number,column_number
+                # you're not actually saving the piece, you're saving the square that has been clicked
+                Rules.square_clicked = square_clicked #row_number,column_number
                 mssg_bar(window, mssg)
                 return
             else:
@@ -163,10 +166,19 @@ def on_click(event):
                         mssg_bar(window, mssg)
 
                 if move_piece == True:
-                    check_move = board[Rules.piece_to_move[0]][Rules.piece_to_move[1]].check_move(row_number,column_number, Rules.piece_to_move, Rules.turn)
+                    if board[row_number][column_number] == None:
+                        attacking = False
+                    else:
+                        attacking = True
+                    print(attacking)
+                    check_move = board[Rules.square_clicked[0]][Rules.square_clicked[1]].check_move(square_clicked, attacking)
                     if check_move == True : #checks rules ## did not have == True on end
-                        board[row_number][column_number] = board[Rules.piece_to_move[0]][Rules.piece_to_move[1]]#moves piece there
-                        board[Rules.piece_to_move[0]][Rules.piece_to_move[1]] = None # sets square was at to None
+                        board[row_number][column_number] = board[Rules.square_clicked[0]][Rules.square_clicked[1]]#moves piece there
+                        # new line of code below
+                        board[row_number][column_number].move_piece(square_clicked) # update our piece with its new position
+                        board[Rules.square_clicked[0]][Rules.square_clicked[1]] = None # sets square was at to None
+                        # reset our click counter - 
+                        Rules.onclick = 0
                         #change turn
                         if Rules.turn == 0:
                             Rules.turn = 1
