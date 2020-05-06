@@ -1,7 +1,6 @@
 # Chess2030
 
-
-
+![GitHub Logo](/home/digihome/Pictures/Screenshot from 2020-05-06 18-37-23.png)
 This is a two player game; playing against computer is not an option yet but could be.
 Currently the master branch holds the best code. so will 
 The rules are being developed at the moment. Get an example in the rules branch where we are currently working on pawn rules.
