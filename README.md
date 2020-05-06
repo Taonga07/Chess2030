@@ -1,6 +1,6 @@
 # Chess2030
-[![Run on Repl.it](https://repl.it/badge/github/Taonga07/Chess2030)](https://repl.it/@Taonga07/Chess)
-try veiwing the code repl-it;  An online VS-Code
+try veiwing the code repl-it;  An online VS-Code [![Run on Repl.it](https://repl.it/badge/github/Taonga07/Chess2030)](https://repl.it/github/Taonga07/Chess2030)
+
 
 ![Main_Screen](https://user-images.githubusercontent.com/56770626/81211682-a2c25800-8fcb-11ea-8990-a37f4d714089.png)![Board](https://user-images.githubusercontent.com/56770626/81210936-85d95500-8fca-11ea-9216-c291e85f7370.png)
 
