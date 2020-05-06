@@ -173,19 +173,16 @@ def on_click(event):
                     print(attacking)
                     check_move = board[Rules.square_clicked[0]][Rules.square_clicked[1]].check_move(square_clicked, attacking)
                     if check_move == True : #checks rules ## did not have == True on end
-                        board[row_number][column_number] = board[Rules.square_clicked[0]][Rules.square_clicked[1]]#moves piece there
-                        # new line of code below
-                        board[row_number][column_number].move_piece(square_clicked) # update our piece with its new position
+                        board[row_number][column_number] = board[Rules.square_clicked[0]][Rules.square_clicked[1]]#moves piece there                        board[row_number][column_number].move_piece(square_clicked) # update our piece with its new position
                         board[Rules.square_clicked[0]][Rules.square_clicked[1]] = None # sets square was at to None
-                        # reset our click counter - 
-                        Rules.onclick = 0
+                        Rules.onclick = 0  # reset our click counter 
                         #change turn
                         if Rules.turn == 0:
                             Rules.turn = 1
                         else:
                             Rules.turn = 0
                     else:
-                        tkinter.messagebox.showinfo("Move Not Allowed", check_move)
+                        tkinter.messagebox.showinfo(check_move, check_move)
                         mssg_bar(window, check_move)
                     # stop
                     move_piece = False
