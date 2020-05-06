@@ -9,8 +9,7 @@ def set_up_window():
     global window
     window = tkinter.Tk()
     window.title('chess')
-    window.tk.call('wm', 'iconphoto', window._w,
-                   tkinter.PhotoImage(file=Rules.path + 'icon.gif'))
+    window.tk.call('wm', 'iconphoto', window._w, tkinter.PhotoImage(file=Rules.path + 'icon.gif'))
     start(window)
     menu(window)
     window.mainloop()
