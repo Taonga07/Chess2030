@@ -1,15 +1,9 @@
 # Chess2030
 
-![GitHub Logo](/home/digihome/Pictures/Screenshot from 2020-05-06 18-37-23.png)
+![Board](https://user-images.githubusercontent.com/56770626/81210936-85d95500-8fca-11ea-9216-c291e85f7370.png)
+
 This is a two player game; playing against computer is not an option yet but could be.
-Currently the master branch holds the best code. so will 
-The rules are being developed at the moment. Get an example in the rules branch where we are currently working on pawn rules.
-The master branch will be updated when all errors and imperfections are dealt with in other branches.
-
-
-
-Chess.py is the actual chess game this is called within main.py. This feature will be availbe soon.
-
-I plan do make this a project guide for a code club. This can be seen within guide.txt
+Currently the master branch holds the best code. so will be updated so all the errors and imperfections are dealt with in other branches.
+The [rules]([GitHub](http://github.com)) are being developed at the moment. Get an example in the [rules]([GitHub](http://github.com)) branch where we are currently working on pawn rules.
 
 Hope you enjoy!
