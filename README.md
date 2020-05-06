@@ -5,6 +5,6 @@
 
 This is a two player game; playing against computer is not an option yet but could be.
 Currently the master branch holds the best code. so will be updated so all the errors and imperfections are dealt with in other branches.
-The [rules]([GitHub](http://github.com)) are being developed at the moment. Get an example in the [rules]([GitHub](http://github.com)) branch where we are currently working on pawn rules.
+The [Rules](https://github.com/Taonga07/Chess2030/tree/Pawn-Rules) are being developed at the moment. Get an example in the [Rules](https://github.com/Taonga07/Chess2030/tree/Pawn-Rules) branch where we are currently working on pawn rules.
 
 Hope you enjoy!
