@@ -4,7 +4,16 @@
 
 
 This is a two player game; playing against computer is not an option yet but could be.
+
 Currently the master branch holds the best code. so will be updated so all the errors and imperfections are dealt with in other branches.
 The [Rules](https://github.com/Taonga07/Chess2030/tree/Pawn-Rules) are being developed at the moment. Get an example in the [Rules](https://github.com/Taonga07/Chess2030/tree/Pawn-Rules) branch where we are currently working on pawn rules.
+
+A list of jobs for this game can be found here.
+
+- [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
+- [x] list syntax required (any unordered or ordered list supported)
+- [x] this is a complete item
+- [ ] this is an incomplete item
+
 
 Hope you enjoy!
