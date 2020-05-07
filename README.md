@@ -1,9 +1,6 @@
 # Chess2030
 https://repl.it/@Taonga07/Chess2030
-
-<a href="https://repl.it/@Taonga07/Chess2030
-" target="_blank"><img src="https://repl.it/@Taonga07/Chess2030" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+[![button](https://user-images.githubusercontent.com/56770626/81318448-2f315100-9086-11ea-90e0-f983cff24e33.png)
 
 ![Main_Screen](https://user-images.githubusercontent.com/56770626/81211682-a2c25800-8fcb-11ea-8990-a37f4d714089.png)![Board](https://user-images.githubusercontent.com/56770626/81210936-85d95500-8fca-11ea-9216-c291e85f7370.png)
 
