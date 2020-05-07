@@ -1,3 +1,5 @@
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/Taonga07/Chess2030) 
+
 # Chess2030
 try veiwing the code repl-it;  An online VS-Code [![Run on Repl.it](https://repl.it/badge/github/Taonga07/Chess2030)](https://repl.it/github/Taonga07/Chess2030)
 
