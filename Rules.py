@@ -17,19 +17,39 @@ class Pawn(GameObject):
     def __init__(self, piece, icon, colour, column, row):
         super().__init__(piece, icon, colour, column, row, 1)
         self.piece = 'Pawn'
-
         self.first_move = True
-    def check_move(self, piece_to_move, attacking):
-        new_row, new_column = piece_to_move
     
-        if ( ( self.first_move and (abs(self.row - new_row) == 2) ) or abs(self.row - new_row) == 1 ) and (self.colour == 'white' and self.row - new_row > 0) or (self.colour == 'black' and self.row - new_row < 0) and ( self.column == new_column or (attacking and abs(self.column - new_column) == 1) ):
+    def highlight_move(self, board):
+        self.possible_moves = []
+        if self.colour == 'white':
+            self.possible_moves.append([self.row - 1, self.column])
+            if self.first_move == True:
+                self.possible_moves.append([self.row - 2, self.column])
+        elif board[self.row][self.column + 1] != None:
+            self.possible_moves.append([self.row, self.column + 1])
+        elif board[self.row][self.column - 1] != None:
+            self.possible_moves.append([self.row, self.column - 1])
+        elif self.colour == 'black':
+            self.possible_moves.append([self.row + 1, self.column])
+            if self.first_move == True:
+                self.possible_moves.append([self.row + 2, self.column])   
+        
+        print(self.possible_moves)
 
-                    self.first_move = False
-                    return True
-  
-        else:
-            mssg = 'Pawns are not allowed to do this!'
-            return mssg
+
+    def check_move(self, piece_to_move):
+        ##new_row, new_column = piece_to_move
+        for i in range(len(self.possible_moves)):
+            if self.item[i] == piece_to_move:
+                return True
+            else:
+                mssg = 'Pawns can not do this!'
+                return mssg
+
+        if self.first_move == True:
+            self.first_move = False
+
+        self.possible_moves.clear
 
 class Rook(GameObject):
     def __init__(self, piece, icon, colour, column, row):

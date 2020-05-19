@@ -151,6 +151,7 @@ def on_click(event):
                 Rules.old_colour = piece_clicked.colour
                 # you're not actually saving the piece, you're saving the square that has been clicked
                 Rules.square_clicked = square_clicked #row_number,column_number
+                board [square_clicked[0]] [square_clicked[1]].highlight_move(board)
                 mssg_bar(window, mssg)
                 return
             else:
@@ -166,12 +167,12 @@ def on_click(event):
                         mssg_bar(window, mssg)
 
                 if move_piece == True:
-                    if board[row_number][column_number] == None:
-                        attacking = False
-                    else:
-                        attacking = True
-                    print(attacking)
-                    check_move = board[Rules.square_clicked[0]][Rules.square_clicked[1]].check_move(square_clicked, attacking)
+                    ##if board[row_number][column_number] == None:
+                    ##    attacking = False
+                    ##else:
+                    ##    attacking = True
+                    ##print(attacking)
+                    check_move = board[Rules.square_clicked[0]][Rules.square_clicked[1]].check_move(square_clicked)
                     if check_move == True : #checks rules ## did not have == True on end
                         board[row_number][column_number] = board[Rules.square_clicked[0]][Rules.square_clicked[1]]#moves piece there                        board[row_number][column_number].move_piece(square_clicked) # update our piece with its new position
                         board[Rules.square_clicked[0]][Rules.square_clicked[1]] = None # sets square was at to None
