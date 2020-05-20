@@ -87,9 +87,12 @@ def reset_board():
     for row in range(0,8):
         rowlist = []
         for column in range(0,8):
-            #if row == 7:
-            #for i in range(Rules.white_pieces):
-            # rowlist.append(Rules.(i)(i, white_pieces[column], path+icons[column], 'white', column, row))
+##            if row == 0:
+##                for i in (Rules.pieces):
+##                    rowlist.append (Rules.(i)(black_pieces[column], path+icons[column+8], 'black', column, row))
+##            elif row == 7:
+##                for i in (Rules.pieces):
+##                    rowlist.append(Rules.i(white_pieces[column], path+icons[column], 'white', column, row))
             if row == 6:
                 rowlist.append(Rules.Pawn('Pawn', Rules.path+'White_Pawn.gif', 'white', column, row))
             elif row == 1:
@@ -167,11 +170,6 @@ def on_click(event):
                         mssg_bar(window, mssg)
 
                 if move_piece == True:
-                    ##if board[row_number][column_number] == None:
-                    ##    attacking = False
-                    ##else:
-                    ##    attacking = True
-                    ##print(attacking)
                     check_move = board[Rules.square_clicked[0]][Rules.square_clicked[1]].check_move(square_clicked)
                     if check_move == True : #checks rules ## did not have == True on end
                         board[row_number][column_number] = board[Rules.square_clicked[0]][Rules.square_clicked[1]]#moves piece there                        board[row_number][column_number].move_piece(square_clicked) # update our piece with its new position
