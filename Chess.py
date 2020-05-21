@@ -87,7 +87,23 @@ def reset_board():
     for row in range(0,8):
         rowlist = []
         for column in range(0,8):
-##            if row == 0:
+            if row == 0:
+                if column == 1:
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
+                elif column == 2:
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
+                elif column == 3:
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
+                elif column == 4:
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
+                elif column == 5:
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
+                elif column == 6:
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
+                elif column == 7:
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
+                elif column == 8:
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
 ##                for i in (Rules.pieces):
 ##                  class_name = 'Rules.' + i
 ##                  rowlist.append (class_name(Rules.pieces[column], Rules.path+Rules.icons[column+8], 'black', column, row))
