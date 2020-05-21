@@ -9,9 +9,23 @@ class GameObject():
         self.column = column
         self.value = value
 
-    # new function to update the object's row and column        
     def move_piece(self, new_position):
         self.row, self.column = new_position
+
+    def check_move(self, piece_to_move, cliked):
+        for i in range(len(cliked.possible_moves)):
+          # go throught list of lits of possible moves
+          #example posible_moves == [[5, 3], [4, 3]]
+            if i == piece_to_move:
+                return True
+            else:
+                mssg = board[Rules.square_clicked[0]][Rules.square_clicked[1]] + "'s can not do this"
+                return mssg
+
+        if cliked.first_move == True:
+            cliked.first_move = False
+
+        cliked.possible_moves.clear()
 
 class Pawn(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -62,7 +76,7 @@ class Rook(GameObject):
     def __init__(self, piece, icon, colour, column, row):
         super().__init__(piece, icon, colour, column, row, 4)
         self.piece = 'Rook'
-#        self.value = 4
+        self.value = 4
 
     def check_move(self, new_row_number,new_column_number):
         return True
@@ -70,38 +84,26 @@ class Rook(GameObject):
 class Bishop(GameObject):
     def __init__(self, piece, icon, colour, column, row):
         super().__init__(piece, icon, colour, column, row, 4)
-        self.piece = 'Rook'
-#        self.value = 4
-
-    def check_move(self, new_row_number,new_column_number):
-        return True
+        self.piece = 'Bishop'
+        self.value = 3
 
 class King(GameObject):
     def __init__(self, piece, icon, colour, column, row):
         super().__init__(piece, icon, colour, column, row, 4)
-        self.piece = 'Rook'
-#        self.value = 4
-
-    def check_move(self, new_row_number,new_column_number):
-        return True
+        self.piece = 'King'
+        self.value = 1
 
 class Queen(GameObject):
     def __init__(self, piece, icon, colour, column, row):
         super().__init__(piece, icon, colour, column, row, 4)
-        self.piece = 'Rook'
-#        self.value = 4
-
-    def check_move(self, new_row_number,new_column_number):
-        return True
+        self.piece = 'Queen'
+        self.value = 9
 
 class Knight(GameObject):
     def __init__(self, piece, icon, colour, column, row):
         super().__init__(piece, icon, colour, column, row, 4)
-        self.piece = 'Rook'
-#        self.value = 4
-
-    def check_move(self, new_row_number,new_column_number):
-        return True
+        self.piece = 'Knight'
+        self.value = 5
 
 # our varibles/lists
 

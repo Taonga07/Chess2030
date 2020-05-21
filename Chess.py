@@ -87,10 +87,10 @@ def reset_board():
     for row in range(0,8):
         rowlist = []
         for column in range(0,8):
-            if row == 0:
-                for i in (Rules.pieces):
-                  class_name = 'Rules.' + i
-                  rowlist.append (class_name(Rules.pieces[column], Rules.path+Rules.icons[column+8], 'black', column, row))
+##            if row == 0:
+##                for i in (Rules.pieces):
+##                  class_name = 'Rules.' + i
+##                  rowlist.append (class_name(Rules.pieces[column], Rules.path+Rules.icons[column+8], 'black', column, row))
 ##            elif row == 7:
 ##                for i in (Rules.pieces):
 ##                    rowlist.append(Rules.i(white_pieces[column], path+icons[column], 'white', column, row))
@@ -171,7 +171,8 @@ def on_click(event):
                         mssg_bar(window, mssg)
 
                 if move_piece == True:
-                    check_move = board[Rules.square_clicked[0]][Rules.square_clicked[1]].check_move(square_clicked)
+                    cliked = board[Rules.square_clicked[0]][Rules.square_clicked[1]]
+                    check_move = Rules.GameObject.check_move(square_clicked, cliked)
                     if check_move == True : #checks rules ## did not have == True on end
                         board[row_number][column_number] = board[Rules.square_clicked[0]][Rules.square_clicked[1]]#moves piece there                        board[row_number][column_number].move_piece(square_clicked) # update our piece with its new position
                         board[Rules.square_clicked[0]][Rules.square_clicked[1]] = None # sets square was at to None
