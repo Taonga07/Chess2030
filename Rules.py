@@ -35,11 +35,18 @@ class Pawn(GameObject):
                 self.possible_moves.append([self.row + 2, self.column])   
         
         print(self.possible_moves)
+        #how would i highlight pieces from here i kow it is like:
+        ## square.config('green')
+        # but it dose not work
+        #attacking piece colour == 'red'
+        #my piece == 'blue'
+        #normal alowed moves == 'green'
 
 
     def check_move(self, piece_to_move):
-        ##new_row, new_column = piece_to_move
         for i in range(len(self.possible_moves)):
+          # go throught list of lits of possible moves
+          #example posible_moves == [[5, 3], [4, 3]]
             if self.item[i] == piece_to_move:
                 return True
             else:
@@ -49,7 +56,7 @@ class Pawn(GameObject):
         if self.first_move == True:
             self.first_move = False
 
-        self.possible_moves.clear
+        self.possible_moves.clear()
 
 class Rook(GameObject):
     def __init__(self, piece, icon, colour, column, row):

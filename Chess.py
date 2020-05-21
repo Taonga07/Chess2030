@@ -87,9 +87,10 @@ def reset_board():
     for row in range(0,8):
         rowlist = []
         for column in range(0,8):
-##            if row == 0:
-##                for i in (Rules.pieces):
-##                    rowlist.append (Rules.(i)(black_pieces[column], path+icons[column+8], 'black', column, row))
+            if row == 0:
+                for i in (Rules.pieces):
+                  class_name = 'Rules.' + i
+                  rowlist.append (class_name(Rules.pieces[column], Rules.path+Rules.icons[column+8], 'black', column, row))
 ##            elif row == 7:
 ##                for i in (Rules.pieces):
 ##                    rowlist.append(Rules.i(white_pieces[column], path+icons[column], 'white', column, row))
