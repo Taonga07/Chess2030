@@ -87,15 +87,6 @@ def reset_board():
     for row in range(0,8):
         rowlist = []
         for column in range(0,8):
-##            if row == 0:
-##                rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
-
-##                for i in (Rules.pieces):
-##                  class_name = 'Rules.' + i
-##                  rowlist.append (class_name(Rules.pieces[column], Rules.path+Rules.icons[column+8], 'black', column, row))
-##            elif row == 7:
-##                for i in (Rules.pieces):
-##                    rowlist.append(Rules.i(white_pieces[column], path+icons[column], 'white', column, row))
             if row == 6:
                 rowlist.append(Rules.Pawn('Pawn', Rules.path+'White_Pawn.gif', 'white', column, row))
             elif row == 1:
@@ -144,7 +135,7 @@ def layout_board(window, board):
     
 def on_click(event):
     square = event.widget
-    Rules.onclick += 1 # a bit tidier than rules.onclick = rules.onclick + 1
+    Rules.onclick += 1
     row_number = int(square.grid_info()["row"])
     column_number  = int(square.grid_info()["column"])
     # lets save our row and column numbers in a tuple here, rather than in several places
@@ -191,7 +182,7 @@ def on_click(event):
                     #if check_move == True : #checks rules ## did not have == True on end
                     if valid_move:
                         # if a pawn and was first move set firstmove to false
-                        if (piece_to_move.piece == 'pawn') and (piece_to_move.piece.first_move) == True:
+                        if (piece_to_move.piece == 'pawn') and (piece_to_move.piece.first_move == True):
                             piece_to_move.piece.first_move = False
                         #we have already set our piece to move above, so we can use that below to simplify the code below
                         #board[row_number][column_number] = board[Rules.square_clicked[0]][Rules.square_clicked[1]]#moves piece there
@@ -207,8 +198,6 @@ def on_click(event):
                             Rules.turn = 0
                     else:
                         # here is where we can set our error message
-                        # we can also simplify a little as we know which is the piece_to_move
-                        #mssg = board[Rules.square_clicked[0]][Rules.square_clicked[1]] + "'s can not do this"
                         mssg = piece_to_move.piece + '\'s can not do that'
                         tkinter.messagebox.showinfo(mssg, mssg)
                         mssg_bar(window, mssg)
