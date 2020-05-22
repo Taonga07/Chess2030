@@ -187,6 +187,8 @@ def on_click(event):
                         #we have already set our piece to move above, so we can use that below to simplify the code below
                         #board[row_number][column_number] = board[Rules.square_clicked[0]][Rules.square_clicked[1]]#moves piece there
                         board[row_number][column_number] = piece_to_move
+                        board[row_number][column_number].row = row_number
+                        board[row_number][column_number].column = column_number
                         # we can also use old_click to simplify the code below
                         #board[Rules.square_clicked[0]][Rules.square_clicked[1]] = None # sets square was at to None
                         board[old_click[0]][old_click[1]] = None
