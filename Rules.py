@@ -39,10 +39,14 @@ class Pawn(GameObject):
                 if ( board[self.row - 2][self.column] == None ) and (self.first_move == True):
                     self.possible_moves.append((self.row - 2, self.column))
             # these are not elif, they are new if conditional statements
-            if board[self.row - 1][self.column + 1] != None:
-                self.possible_moves.append((self.row - 1, self.column + 1))
-            if board[self.row - 1][self.column - 1] != None:
-                self.possible_moves.append((self.row - 1, self.column - 1))
+            # if we're on column 7 (the last one on the row), we can't check column + 1 because it's off the board
+            if self.column < 7:
+                if board[self.row - 1][self.column + 1] != None:
+                    self.possible_moves.append((self.row - 1, self.column + 1))
+            # and if we're on the first column, we can't check column - 1
+            if self.column > 0:
+                if board[self.row - 1][self.column - 1] != None:
+                    self.possible_moves.append((self.row - 1, self.column - 1))
         
         elif self.colour == 'black':
             # if the square in front of us is clear, we can move to it
@@ -51,11 +55,15 @@ class Pawn(GameObject):
                 # if its our first move the the square 2 in front is clear, we can move to it also
                 if ( board[self.row + 2][self.column] == None ) and (self.first_move == True):
                     self.possible_moves.append((self.row + 2, self.column))
-            if board[self.row + 1][self.column + 1] != None:
-                self.possible_moves.append((self.row + 1, self.column + 1))
-            if board[self.row + 1][self.column - 1] != None:
-                self.possible_moves.append((self.row + 1, self.column - 1))
-            if board[self.row + 1][self.column] == board[7][self.column]:
+            # if we're on column 7 (the last one on the row), we can't check column + 1 because it's off the board
+            if self.column < 7:
+                if board[self.row + 1][self.column + 1] != None:
+                    self.possible_moves.append((self.row + 1, self.column + 1))
+            # and if we're on the first column, we can't check column - 1
+            if self.column > 0:
+                if board[self.row + 1][self.column - 1] != None:
+                    self.possible_moves.append((self.row + 1, self.column - 1))
+            #if board[self.row + 1][self.column] == board[7][self.column]:
                 
         
         print('possible moves', self.possible_moves)
