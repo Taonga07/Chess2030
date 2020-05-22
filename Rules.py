@@ -55,6 +55,8 @@ class Pawn(GameObject):
                 self.possible_moves.append((self.row + 1, self.column + 1))
             if board[self.row + 1][self.column - 1] != None:
                 self.possible_moves.append((self.row + 1, self.column - 1))
+            if board[self.row + 1][self.column] == board[7][self.column]:
+                
         
         print('possible moves', self.possible_moves)
         #how would i highlight pieces from here i kow it is like:
