@@ -52,7 +52,7 @@ class Pawn(GameObject):
         self.possible_moves = []
         print('my square', self.row, self.column)
         if self.colour == 'white':
-            if ( board[self.row - 1][self.column].piece != None ) and ( board[self.row - 2][self.column].piece != None ): 
+            if ( board[self.row - 1][self.column] == None ) and ( board[self.row - 2][self.column] == None ): 
                 self.possible_moves.append((self.row - 1, self.column))
                 if self.first_move == True:
                     self.possible_moves.append((self.row - 2, self.column))
@@ -62,7 +62,7 @@ class Pawn(GameObject):
                 self.possible_moves.append((self.row - 1, self.column - 1))
         
         elif self.colour == 'black':
-            if (board[self.row + 1][self.column].piece != None) and (board[self.row + 2][self.column].piece != None): 
+            if (board[self.row + 1][self.column].piece == None) and (board[self.row + 2][self.column].piece == None): 
                 self.possible_moves.append((self.row + 1, self.column))
                 if self.first_move == True:
                     self.possible_moves.append((self.row + 2, self.column))
