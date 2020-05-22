@@ -20,7 +20,6 @@ class GameObject():
             # and if it's not valid, it'll exit without checking the others
             
         # you want to check all possible moves, and then exit with False if none are valid
-        self.possible_moves.clear()
         return False
 
 class Pawn(GameObject):

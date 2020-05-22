@@ -104,10 +104,27 @@ def reset_board():
                     rowlist.append(Rules.Knight('Knight', Rules.path+'Black_Knight.gif', 'black', column, row))
                 elif column == 7:
                     rowlist.append(Rules.Rook('Rook', Rules.path+'Black_Rook.gif', 'black', column, row))
-            if row == 6:
-                rowlist.append(Rules.Pawn('Pawn', Rules.path+'White_Pawn.gif', 'white', column, row))
             elif row == 1:
                 rowlist.append(Rules.Pawn('Pawn', Rules.path+'Black_Pawn.gif', 'black', column, row))
+            elif row == 6:
+                rowlist.append(Rules.Pawn('Pawn', Rules.path+'White_Pawn.gif', 'white', column, row))
+            elif row == 7:
+                if column == 0:
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Rook.gif', 'White', column, row))
+                elif column == 1:
+                    rowlist.append(Rules.Knight('Knight', Rules.path+'White_Knight.gif', 'White', column, row))
+                elif column == 2:
+                    rowlist.append(Rules.Bishop('Bishop', Rules.path+'White_Bishop.gif', 'White', column, row))
+                elif column == 3:
+                    rowlist.append(Rules.Queen('Queen', Rules.path+'White_Queen.gif', 'White', column, row))
+                elif column == 4:
+                    rowlist.append(Rules.King('King', Rules.path+'White_King.gif', 'White', column, row))
+                elif column == 5:
+                    rowlist.append(Rules.Bishop('Bishop', Rules.path+'White_Bishop.gif', 'White', column, row)) 
+                elif column == 6:
+                    rowlist.append(Rules.Knight('Knight', Rules.path+'White_Knight.gif', 'White', column, row))
+                elif column == 7:
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Rook.gif', 'White', column, row))
             else:
                 rowlist.append(None)
         board.append(rowlist)
