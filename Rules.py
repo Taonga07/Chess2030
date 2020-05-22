@@ -52,13 +52,18 @@ class Pawn(GameObject):
         self.possible_moves = []
         print('my square', self.row, self.column)
         if self.colour == 'white':
-            if ( board[self.row - 1][self.column].piece != None ) and ( board[self.row - 2][self.column].piece != None ): 
+            # if the square in front of us is clear, we can move to it
+            print(board[self.row - 1][self.column])
+            if board[self.row - 1][self.column] == None: 
+                print('not none')
                 self.possible_moves.append((self.row - 1, self.column))
-                if self.first_move == True:
+                # if its our first move the the square 2 in front is clear, we can move to it also
+                if ( board[self.row - 2][self.column] == None ) and (self.first_move == True):
                     self.possible_moves.append((self.row - 2, self.column))
-            elif board[self.row - 1][self.column + 1].piece != None:
+            # else if the square in front of us is clear we can move to it
+            elif board[self.row - 1][self.column + 1] != None:
                 self.possible_moves.append((self.row - 1, self.column + 1))
-            elif board[self.row - 1][self.column - 1].piece != None:
+            elif board[self.row - 1][self.column - 1] != None:
                 self.possible_moves.append((self.row - 1, self.column - 1))
         
         elif self.colour == 'black':
