@@ -1,4 +1,4 @@
-import Chess, os
+import Chess, Rules, os
 
 class GameObject():
     def __init__(self, piece, icon, colour, column, row, value):
@@ -12,7 +12,8 @@ class GameObject():
     def move_piece(self, new_position):
         self.row, self.column = new_position
 
-    def check_move(self, piece_to_move, cliked):
+    def check_move(self, piece_to_move, board):
+        cliked = board[Rules.square_clicked[0]][Rules.square_clicked[1]]
         for i in range(len(cliked.possible_moves)):
           # go throught list of lits of possible moves
           #example posible_moves == [[5, 3], [4, 3]]

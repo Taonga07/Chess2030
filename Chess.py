@@ -173,8 +173,7 @@ def on_click(event):
                         mssg_bar(window, mssg)
 
                 if move_piece == True:
-                    cliked = board[Rules.square_clicked[0]][Rules.square_clicked[1]]
-                    check_move = Rules.GameObject.check_move(piece_clicked, cliked)
+                    check_move = Rules.GameObject.check_move(piece_clicked, board)
                     if check_move == True : #checks rules ## did not have == True on end
                         board[row_number][column_number] = board[Rules.square_clicked[0]][Rules.square_clicked[1]]#moves piece there                        board[row_number][column_number].move_piece(square_clicked) # update our piece with its new position
                         board[Rules.square_clicked[0]][Rules.square_clicked[1]] = None # sets square was at to None
