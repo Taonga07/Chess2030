@@ -50,12 +50,9 @@ class Pawn(GameObject):
     
     def highlight_move(self, board):
         self.possible_moves = []
-        print('my square', self.row, self.column)
         if self.colour == 'white':
             # if the square in front of us is clear, we can move to it
-            print(board[self.row - 1][self.column])
             if board[self.row - 1][self.column] == None: 
-                print('not none')
                 self.possible_moves.append((self.row - 1, self.column))
                 # if its our first move the the square 2 in front is clear, we can move to it also
                 if ( board[self.row - 2][self.column] == None ) and (self.first_move == True):
