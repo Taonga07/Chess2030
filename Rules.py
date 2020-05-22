@@ -18,8 +18,9 @@ class GameObject():
                 return True
             # if you put else here, it will check your destination against the first possible move
             # and if it's not valid, it'll exit without checking the others
-            #else:
+            
         # you want to check all possible moves, and then exit with False if none are valid
+        self.possible_moves.clear()
         return False
 
 class Pawn(GameObject):
