@@ -190,6 +190,9 @@ def on_click(event):
                     # valid_move is now True or False, which makes our if statment easier
                     #if check_move == True : #checks rules ## did not have == True on end
                     if valid_move:
+                        # if a pawn and was first move set firstmove to false
+                        if (piece_to_move.piece == 'pawn') and (piece_to_move.piece.first_move) == True:
+                            piece_to_move.piece.first_move = False
                         #we have already set our piece to move above, so we can use that below to simplify the code below
                         #board[row_number][column_number] = board[Rules.square_clicked[0]][Rules.square_clicked[1]]#moves piece there
                         board[row_number][column_number] = piece_to_move
@@ -210,7 +213,7 @@ def on_click(event):
                         tkinter.messagebox.showinfo(mssg, mssg)
                         mssg_bar(window, mssg)
                     # stop
-                    move_piece = False
+                    move_piece = False 
 
         layout_board(window, board) # tkinter grid to board list
 

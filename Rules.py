@@ -39,8 +39,6 @@ class GameObject():
         return False
         # this is only for Pawns, so shouldn't be here
         # also it will never be run as you return False before it
-        if cliked.first_move == True:
-            cliked.first_move = False
         # you don't need to clear the possible_moves, they may click on another square that is valid
         #cliked.possible_moves.clear()
 
@@ -54,24 +52,25 @@ class Pawn(GameObject):
         self.possible_moves = []
         print('my square', self.row, self.column)
         if self.colour == 'white':
-            # this is a bit technical but you want to save tuples (row, column), not lists [row, column]
-            #self.possible_moves.append([self.row - 1, self.column])
-            self.possible_moves.append((self.row - 1, self.column))
-            if self.first_move == True:
-                self.possible_moves.append((self.row - 2, self.column))
-        # I'm not quite sure your logic here is quite right - are you trying to code the 'take a piece' option?
-        # I don't think it's quite working as intended
-        elif board[self.row][self.column + 1] != None:
-            self.possible_moves.append((self.row, self.column + 1))
-        elif board[self.row][self.column - 1] != None:
-            self.possible_moves.append((self.row, self.column - 1))
-        # for some reason, this isn't producing a correct list
-        # seems to be adding 1 to the column, and not recognising that it's a first move
-        # # more digging needed
+            if ( board[self.row - 1][self.column] != None ) and ( board[self.row - 2][self.column] != None ): 
+                self.possible_moves.append((self.row - 1, self.column))
+                if self.first_move == True:
+                    self.possible_moves.append((self.row - 2, self.column))
+            elif board[self.row - 1][self.column + 1] != None:
+                self.possible_moves.append((self.row - 1, self.column + 1))
+            elif board[self.row - 1][self.column - 1] != None:
+                self.possible_moves.append((self.row - 1, self.column - 1))
+        
         elif self.colour == 'black':
-            self.possible_moves.append((self.row + 1, self.column))
-            if self.first_move == True:
-                self.possible_moves.append((self.row + 2, self.column))   
+            if (board[self.row + 1][self.column] != None) and (board[self.row + 2][self.column] != None): 
+                self.possible_moves.append((self.row + 1, self.column))
+                if self.first_move == True:
+                    self.possible_moves.append((self.row + 2, self.column))
+            elif board[self.row + 1][self.column + 1] != None:
+                self.possible_moves.append((self.row + 1, self.column + 1))
+            elif board[self.row + 1][self.column - 1] != None:
+                self.possible_moves.append((self.row + 1, self.column - 1))
+             
         
         print('possible moves', self.possible_moves)
         #how would i highlight pieces from here i kow it is like:
@@ -80,22 +79,6 @@ class Pawn(GameObject):
         #attacking piece colour == 'red'
         #my piece == 'blue'
         #normal alowed moves == 'green'
-
-# you have a check_move in your GameObject class, use that
-#    def check_move(self, piece_to_move):
-#        for i in range(len(self.possible_moves)):
-#          # go throught list of lits of possible moves
-#          #example posible_moves == [[5, 3], [4, 3]]
-#            if self.item[i] == piece_to_move:
-#                return True
-#            else:
-#                mssg = 'Pawns can not do this!'
-#                return mssg
-#
-#        if self.first_move == True:
-#            self.first_move = False
-#
-#        self.possible_moves.clear()
 
 class Rook(GameObject):
     def __init__(self, piece, icon, colour, column, row):
