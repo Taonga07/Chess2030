@@ -13,10 +13,11 @@ class GameObject():
         self.row, self.column = new_position
 
     def check_move(self, destination_square):
-        if i == destination_square:
-            return True
-        else:
-            return False
+        for i in self.possible_moves:
+            if i == destination_square:
+                return True
+            else:
+                return False
 
 class Pawn(GameObject):
     def __init__(self, piece, icon, colour, column, row):
