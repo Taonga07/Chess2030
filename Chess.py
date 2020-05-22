@@ -87,23 +87,9 @@ def reset_board():
     for row in range(0,8):
         rowlist = []
         for column in range(0,8):
-            if row == 0:
-                if column == 1:
-                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
-                elif column == 2:
-                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
-                elif column == 3:
-                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
-                elif column == 4:
-                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
-                elif column == 5:
-                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
-                elif column == 6:
-                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
-                elif column == 7:
-                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
-                elif column == 8:
-                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
+##            if row == 0:
+##                rowlist.append(Rules.Rook('Rook', Rules.path+'White_Pawn.gif', 'white', column, row))
+
 ##                for i in (Rules.pieces):
 ##                  class_name = 'Rules.' + i
 ##                  rowlist.append (class_name(Rules.pieces[column], Rules.path+Rules.icons[column+8], 'black', column, row))
@@ -188,7 +174,7 @@ def on_click(event):
 
                 if move_piece == True:
                     cliked = board[Rules.square_clicked[0]][Rules.square_clicked[1]]
-                    check_move = Rules.GameObject.check_move(square_clicked, cliked)
+                    check_move = Rules.GameObject.check_move(piece_clicked, cliked)
                     if check_move == True : #checks rules ## did not have == True on end
                         board[row_number][column_number] = board[Rules.square_clicked[0]][Rules.square_clicked[1]]#moves piece there                        board[row_number][column_number].move_piece(square_clicked) # update our piece with its new position
                         board[Rules.square_clicked[0]][Rules.square_clicked[1]] = None # sets square was at to None
