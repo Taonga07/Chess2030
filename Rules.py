@@ -16,8 +16,11 @@ class GameObject():
         for i in self.possible_moves:
             if i == destination_square:
                 return True
-            else:
-                return False
+            # if you put else here, it will check your destination against the first possible move
+            # and if it's not valid, it'll exit without checking the others
+            #else:
+        # you want to check all possible moves, and then exit with False if none are valid
+        return False
 
 class Pawn(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -34,10 +37,10 @@ class Pawn(GameObject):
                 # if its our first move the the square 2 in front is clear, we can move to it also
                 if ( board[self.row - 2][self.column] == None ) and (self.first_move == True):
                     self.possible_moves.append((self.row - 2, self.column))
-            # else if the square in front of us is clear we can move to it
-            elif board[self.row - 1][self.column + 1] != None:
+            # these are not elif, they are new if conditional statements
+            if board[self.row - 1][self.column + 1] != None:
                 self.possible_moves.append((self.row - 1, self.column + 1))
-            elif board[self.row - 1][self.column - 1] != None:
+            if board[self.row - 1][self.column - 1] != None:
                 self.possible_moves.append((self.row - 1, self.column - 1))
         
         elif self.colour == 'black':
@@ -47,12 +50,10 @@ class Pawn(GameObject):
                 # if its our first move the the square 2 in front is clear, we can move to it also
                 if ( board[self.row + 2][self.column] == None ) and (self.first_move == True):
                     self.possible_moves.append((self.row + 2, self.column))
-            # else if the square in front of us is clear we can move to it
-            elif board[self.row + 1][self.column + 1] != None:
+            if board[self.row + 1][self.column + 1] != None:
                 self.possible_moves.append((self.row + 1, self.column + 1))
-            elif board[self.row + 1][self.column - 1] != None:
+            if board[self.row + 1][self.column - 1] != None:
                 self.possible_moves.append((self.row + 1, self.column - 1))
-             
         
         print('possible moves', self.possible_moves)
         #how would i highlight pieces from here i kow it is like:
