@@ -12,35 +12,12 @@ class GameObject():
     def move_piece(self, new_position):
         self.row, self.column = new_position
 
-    # we don't need to pass the piece_to_move as each sub-class will inherit this method
-    # we also don't need to pass the board, as we're not referencing it here, but
-    # we do need to tell it where it's trying to move to
-    #def check_move(self, piece_to_move, board):
     def check_move(self, destination_square):
-        # because all our sub-classes will inherity this method, we don't need to set cliked
-        #cliked = board[Rules.square_clicked[0]][Rules.square_clicked[1]]
-        # we can call our self.variables / functions
-        #for i in range(len(cliked.possible_moves)):
-        # and you're not iterating through a loop a number of times, you want to check against each in the list
         for i in self.possible_moves:
-        # go throught list of lits of possible moves
-        # example posible_moves == [[5, 3], [4, 3]]
-            # you haven't passed in anything for piece_to_move (and i think you mean destination_square)
-            #if i == piece_to_move:
             if i == destination_square:
                 return True
-            #else: # this else will activate if the first possible_move is not the destination_square, and return False
-                #mssg = board[Rules.square_clicked[0]][Rules.square_clicked[1]] + "'s can not do this"
-                # it's very confusing to have function that returns True, False, or a string
-                # to keep it simple, just return True or False
-                #return mssg
+            else:
                 return False
-        # you want to return False if none of the possible_moves == destination_square
-        return False
-        # this is only for Pawns, so shouldn't be here
-        # also it will never be run as you return False before it
-        # you don't need to clear the possible_moves, they may click on another square that is valid
-        #cliked.possible_moves.clear()
 
 class Pawn(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -56,20 +33,20 @@ class Pawn(GameObject):
                 self.possible_moves.append((self.row - 1, self.column))
                 if self.first_move == True:
                     self.possible_moves.append((self.row - 2, self.column))
-            elif board[self.row - 1][self.column + 1].piece != None:
-                self.possible_moves.append((self.row - 1, self.column + 1))
-            elif board[self.row - 1][self.column - 1].piece != None:
-                self.possible_moves.append((self.row - 1, self.column - 1))
+                elif board[self.row - 1][self.column + 1] != None:
+                    self.possible_moves.append((self.row - 1, self.column + 1))
+                elif board[self.row - 1][self.column - 1] != None:
+                    self.possible_moves.append((self.row - 1, self.column - 1))
         
         elif self.colour == 'black':
-            if (board[self.row + 1][self.column].piece == None) and (board[self.row + 2][self.column].piece == None): 
+            if (board[self.row + 1][self.column] == None) and (board[self.row + 2][self.column] == None): 
                 self.possible_moves.append((self.row + 1, self.column))
                 if self.first_move == True:
                     self.possible_moves.append((self.row + 2, self.column))
-            elif board[self.row + 1][self.column + 1].piece != None:
-                self.possible_moves.append((self.row + 1, self.column + 1))
-            elif board[self.row + 1][self.column - 1].piece != None:
-                self.possible_moves.append((self.row + 1, self.column - 1))
+                elif board[self.row + 1][self.column + 1] != None:
+                    self.possible_moves.append((self.row + 1, self.column + 1))
+                elif board[self.row + 1][self.column - 1] != None:
+                    self.possible_moves.append((self.row + 1, self.column - 1))
              
         
         print('possible moves', self.possible_moves)
