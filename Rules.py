@@ -36,7 +36,7 @@ class Pawn(GameObject):
         self.piece = 'Pawn'
         self.first_move = True
     
-    def possible_moves(self, board):
+    def find_moves(self, board):
         self.possible_moves = []
         if self.colour == 'white':
             # if the square in front of us is clear, we can move to it
