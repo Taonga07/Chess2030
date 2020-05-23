@@ -22,6 +22,8 @@ class GameObject():
                 square.config(bg='red')
 
     def check_move(self, destination_square):
+        if self.possible_moves == []:
+            return True
         for i in self.possible_moves:
             if i == destination_square:
                 return True
@@ -88,8 +90,8 @@ class Rook(GameObject):
         self.piece = 'Rook'
         self.value = 4
 
-    def check_move(self, destination_square):
-        return True
+    def find_moves(self, board):
+        pass
 
 class Bishop(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -97,8 +99,8 @@ class Bishop(GameObject):
         self.piece = 'Bishop'
         self.value = 3
 
-    def check_move(self, destination_square):
-        return True
+    def find_moves(self, board): 
+        pass
 
 class King(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -106,8 +108,8 @@ class King(GameObject):
         self.piece = 'King'
         self.value = 1
 
-    def check_move(self, destination_square):
-        return True
+    def find_moves(self, board): 
+        pass
 
 class Queen(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -115,8 +117,8 @@ class Queen(GameObject):
         self.piece = 'Queen'
         self.value = 9
 
-    def check_move(self, destination_square):
-        return True
+    def find_moves(self, board): 
+        pass
 
 class Knight(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -124,8 +126,8 @@ class Knight(GameObject):
         self.piece = 'Knight'
         self.value = 5
 
-    def check_move(self, destination_square):
-        return True
+    def find_moves(self, board): 
+        pass
 
 # our varibles/lists
 
