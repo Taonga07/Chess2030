@@ -12,13 +12,16 @@ class GameObject():
     def move_piece(self, new_position):
         self.row, self.column = new_position
 
-    def check_move(self, destination_square, square, board):
+    def highlight_moves(self, square, board):
         for i in self.possible_moves:
             row, column = i
             if i != board[row][column]:
                 square.config('green')
             else:
                 square.config('red')
+
+    def check_move(self, destination_square):
+        for i in self.possible_moves:
             if i == destination_square:
                 return True
             # if you put else here, it will check your destination against the first possible move
@@ -33,7 +36,7 @@ class Pawn(GameObject):
         self.piece = 'Pawn'
         self.first_move = True
     
-    def highlight_move(self, board):
+    def possible_moves(self, board):
         self.possible_moves = []
         if self.colour == 'white':
             # if the square in front of us is clear, we can move to it
