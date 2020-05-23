@@ -16,9 +16,9 @@ class GameObject():
         for i in self.possible_moves:
             row, column = i
             if i != board[row][column]:
-                square.config('green')
+                square.config(bg='green')
             else:
-                square.config('red')
+                square.config(bg='red')
 
     def check_move(self, destination_square):
         for i in self.possible_moves:
