@@ -184,7 +184,7 @@ def on_click(event):
                 # you're not actually saving the piece, you're saving the square that has been clicked
                 Rules.square_clicked = square_clicked #row_number,column_number
                 board[square_clicked[0]][square_clicked[1]].find_moves(board)
-                board[square_clicked[0]][square_clicked[1]].highlight_moves(square, board)
+                board[square_clicked[0]][square_clicked[1]].highlight_moves(square, board, board[Rules.square_clicked[0]][Rules.square_clicked[1]].piece)
                 mssg_bar(window, mssg)
                 return
             else: # this is our second click, we are selecting the square to move to
@@ -212,7 +212,7 @@ def on_click(event):
                     # but we need to tell our piece_to_move, where we want it to move to, which is square_clicked
                     print('square_clicked', square_clicked)
                     print('piece_to_move.possible_moves', piece_to_move.possible_moves)
-                    valid_move = piece_to_move.check_move(square_clicked) # we also need to change some code on Rules.py
+                    valid_move = piece_to_move.check_move(square_clicked, piece_to_move.piece) # we also need to change some code on Rules.py
                     # valid_move is now True or False, which makes our if statment easier
                     #if check_move == True : #checks rules ## did not have == True on end
                     if valid_move:

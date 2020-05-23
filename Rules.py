@@ -12,16 +12,16 @@ class GameObject():
     def move_piece(self, new_position):
         self.row, self.column = new_position
 
-    def highlight_moves(self, square, board):
-        for i in self.possible_moves:
+    def highlight_moves(self, square, board, piece):
+        for i in piece.possible_moves:
             row, column = i
             if i != board[row][column]:
                 square.config(bg='green')
             else:
                 square.config(bg='red')
 
-    def check_move(self, destination_square):
-        for i in self.possible_moves:
+    def check_move(self, destination_square, piece):
+        for i in piece.possible_moves:
             if i == destination_square:
                 return True
             # if you put else here, it will check your destination against the first possible move
