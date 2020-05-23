@@ -88,8 +88,8 @@ class Rook(GameObject):
         self.piece = 'Rook'
         self.value = 4
 
-#    def check_move(self, new_row_number,new_column_number):
-#        return True
+    def check_move(self, destination_square):
+        return True
 
 class Bishop(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -97,11 +97,17 @@ class Bishop(GameObject):
         self.piece = 'Bishop'
         self.value = 3
 
+    def check_move(self, destination_square):
+        return True
+
 class King(GameObject):
     def __init__(self, piece, icon, colour, column, row):
         super().__init__(piece, icon, colour, column, row, 4)
         self.piece = 'King'
         self.value = 1
+
+    def check_move(self, destination_square):
+        return True
 
 class Queen(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -109,11 +115,17 @@ class Queen(GameObject):
         self.piece = 'Queen'
         self.value = 9
 
+    def check_move(self, destination_square):
+        return True
+
 class Knight(GameObject):
     def __init__(self, piece, icon, colour, column, row):
         super().__init__(piece, icon, colour, column, row, 4)
         self.piece = 'Knight'
         self.value = 5
+
+    def check_move(self, destination_square):
+        return True
 
 # our varibles/lists
 
