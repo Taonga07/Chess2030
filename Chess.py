@@ -175,87 +175,83 @@ def on_click(event):
     # lets save our row and column numbers in a tuple here, rather than in several places
     square_clicked = (row_number, column_number)
     piece_clicked = board[row_number][column_number]
-    try:
-        if ((Rules.onclick == 1 and ((Rules.turn == 0 and piece_clicked.colour == 'white') or (Rules.turn == 1 and piece_clicked.colour == 'black'))) or Rules.onclick == 2):            
-            if Rules.onclick == 1: # this is our first click, we should be selecting a piece
-                square.config(bg='blue')
-                mssg = "Where would you like to move your " + piece_clicked.piece + " to!"
-                Rules.old_colour = piece_clicked.colour
-                # you're not actually saving the piece, you're saving the square that has been clicked
-                Rules.square_clicked = square_clicked #row_number,column_number
-                board[square_clicked[0]][square_clicked[1]].find_moves(board)
-                board[square_clicked[0]][square_clicked[1]].highlight_moves(square, board, board[Rules.square_clicked[0]][Rules.square_clicked[1]].piece)
-                mssg_bar(window, mssg)
-                return
-            else: # this is our second click, we are selecting the square to move to
-                if piece_clicked == None: # nothing at the square we're moving to
+    if (Rules.onclick == 1) and (piece_clicked == None):
+        tkinter.messagebox.showinfo("Move Not Allowed","Your/No piece there, try again")
+        mssg = 'Your/No piece there, try again'
+        mssg_bar(window, mssg)
+    elif ((Rules.onclick == 1 and ((Rules.turn == 0 and piece_clicked.colour == 'white') or (Rules.turn == 1 and piece_clicked.colour == 'black'))) or Rules.onclick == 2):            
+        if Rules.onclick == 1: # this is our first click, we should be selecting a piece
+            square.config(bg='blue')
+            mssg = "Where would you like to move your " + piece_clicked.piece + " to!"
+            Rules.old_colour = piece_clicked.colour
+            # you're not actually saving the piece, you're saving the square that has been clicked
+            Rules.square_clicked = square_clicked #row_number,column_number
+            board[square_clicked[0]][square_clicked[1]].find_moves(board)
+            board[square_clicked[0]][square_clicked[1]].highlight_moves(square, board)
+            mssg_bar(window, mssg)
+            return
+        else: # this is our second click, we are selecting the square to move to
+            if piece_clicked == None: # nothing at the square we're moving to
+                move_piece = True
+            else: # click a square with piece on
+                if (isinstance(piece_clicked, Rules.GameObject) and Rules.old_colour != piece_clicked.colour): # check were not tacking the same colour piece
                     move_piece = True
-                else: # click a square with piece on
-                    if (isinstance(piece_clicked, Rules.GameObject) and Rules.old_colour != piece_clicked.colour): # check were not tacking the same colour piece
-                        move_piece = True
+                else:
+                    tkinter.messagebox.showinfo("Move Not Allowed", "You can not take your own piece!")
+                    mssg = "You can not take your own piece!"
+                    move_piece = False
+                    mssg_bar(window, mssg)
+
+            if move_piece == True:
+                # you have two check_move's : one is a variable, the second is a method for your GameObject class
+                # I would rename your variable to something like valid_move
+                # also piece_clicked is the object at the square we clicked on, not the piece we selected on our first click
+                #check_move = Rules.GameObject.check_move(piece_clicked, board)
+
+                # let's set the piece we are moving
+                old_click = Rules.square_clicked # this was saved when we clicked a square the first time
+                piece_to_move = board[old_click[0]][old_click[1]] # this was the piece we clicked on first time
+                # now we can check if our move is valid
+                # but we need to tell our piece_to_move, where we want it to move to, which is square_clicked
+                print('square_clicked', square_clicked)
+                print('piece_to_move.possible_moves', piece_to_move.possible_moves)
+                valid_move = piece_to_move.check_move(square_clicked) # we also need to change some code on Rules.py
+                # valid_move is now True or False, which makes our if statment easier
+                #if check_move == True : #checks rules ## did not have == True on end
+                if valid_move:
+                    # if a pawn and was first move set firstmove to false
+                    if (piece_to_move.piece == 'pawn') and (piece_to_move.piece.first_move == True):
+                        piece_to_move.piece.first_move = False
+                    #we have already set our piece to move above, so we can use that below to simplify the code below
+                    #board[row_number][column_number] = board[Rules.square_clicked[0]][Rules.square_clicked[1]]#moves piece there
+                    board[row_number][column_number] = piece_to_move
+                    board[row_number][column_number].row = row_number
+                    board[row_number][column_number].column = column_number
+                    # we can also use old_click to simplify the code below
+                    #board[Rules.square_clicked[0]][Rules.square_clicked[1]] = None # sets square was at to None
+                    board[old_click[0]][old_click[1]] = None
+                    Rules.onclick = 0  # reset our click counter 
+                    #change turn
+                    if Rules.turn == 0:
+                        Rules.turn = 1
                     else:
-                        tkinter.messagebox.showinfo("Move Not Allowed", "You can not take your own piece!")
-                        mssg = "You can not take your own piece!"
-                        move_piece = False
-                        mssg_bar(window, mssg)
+                        Rules.turn = 0
+                else:
+                    # here is where we can set our error message
+                    mssg = piece_to_move.piece + '\'s can not do that'
+                    tkinter.messagebox.showinfo(mssg, mssg)
+                    mssg_bar(window, mssg)
+                # stop
+                move_piece = False 
 
-                if move_piece == True:
-                    # you have two check_move's : one is a variable, the second is a method for your GameObject class
-                    # I would rename your variable to something like valid_move
-                    # also piece_clicked is the object at the square we clicked on, not the piece we selected on our first click
-                    #check_move = Rules.GameObject.check_move(piece_clicked, board)
+    else:
+        tkinter.messagebox.showerror("Error","An error has ocurred!")
+        mssg = "An error has ocurred!"
+        mssg_bar(window, mssg)
 
-                    # let's set the piece we are moving
-                    old_click = Rules.square_clicked # this was saved when we clicked a square the first time
-                    piece_to_move = board[old_click[0]][old_click[1]] # this was the piece we clicked on first time
-                    # now we can check if our move is valid
-                    # but we need to tell our piece_to_move, where we want it to move to, which is square_clicked
-                    print('square_clicked', square_clicked)
-                    print('piece_to_move.possible_moves', piece_to_move.possible_moves)
-                    valid_move = piece_to_move.check_move(square_clicked, piece_to_move.piece) # we also need to change some code on Rules.py
-                    # valid_move is now True or False, which makes our if statment easier
-                    #if check_move == True : #checks rules ## did not have == True on end
-                    if valid_move:
-                        # if a pawn and was first move set firstmove to false
-                        if (piece_to_move.piece == 'pawn') and (piece_to_move.piece.first_move == True):
-                            piece_to_move.piece.first_move = False
-                        #we have already set our piece to move above, so we can use that below to simplify the code below
-                        #board[row_number][column_number] = board[Rules.square_clicked[0]][Rules.square_clicked[1]]#moves piece there
-                        board[row_number][column_number] = piece_to_move
-                        board[row_number][column_number].row = row_number
-                        board[row_number][column_number].column = column_number
-                        # we can also use old_click to simplify the code below
-                        #board[Rules.square_clicked[0]][Rules.square_clicked[1]] = None # sets square was at to None
-                        board[old_click[0]][old_click[1]] = None
-                        Rules.onclick = 0  # reset our click counter 
-                        #change turn
-                        if Rules.turn == 0:
-                            Rules.turn = 1
-                        else:
-                            Rules.turn = 0
-                    else:
-                        # here is where we can set our error message
-                        mssg = piece_to_move.piece + '\'s can not do that'
-                        tkinter.messagebox.showinfo(mssg, mssg)
-                        mssg_bar(window, mssg)
-                    # stop
-                    move_piece = False 
-
-        layout_board(window, board) # tkinter grid to board list
-
-    except:
-        if Rules.onclick == 1:
-            tkinter.messagebox.showinfo("Move Not Allowed","Your/No piece there, try again")
-            mssg = 'Your/No piece there, try again'
-            mssg_bar(window, mssg)
-        else:
-            tkinter.messagebox.showerror("Error","An error has ocurred!")
-            mssg = "An error has ocurred!"
-            mssg_bar(window, mssg)
-        raise
     Rules.onclick = 0
 
-
+    layout_board(window, board) # tkinter grid to board list
 
 if __name__ =="__main__":
     set_up_window()
