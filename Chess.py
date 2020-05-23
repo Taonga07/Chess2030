@@ -211,7 +211,7 @@ def on_click(event):
                     # but we need to tell our piece_to_move, where we want it to move to, which is square_clicked
                     print('square_clicked', square_clicked)
                     print('piece_to_move.possible_moves', piece_to_move.possible_moves)
-                    valid_move = piece_to_move.check_move(square_clicked) # we also need to change some code on Rules.py
+                    valid_move = piece_to_move.check_move(square_clicked, square, board) # we also need to change some code on Rules.py
                     # valid_move is now True or False, which makes our if statment easier
                     #if check_move == True : #checks rules ## did not have == True on end
                     if valid_move:
