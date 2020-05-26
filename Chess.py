@@ -107,9 +107,12 @@ def reset_board():
             elif row == 1:
                 rowlist.append(Rules.Pawn('Pawn', Rules.path+'Black_Pawn.gif', 'black', column, row))
             elif row == 6:
+                # I think this should be a 'black' piece
                 rowlist.append(Rules.Pawn('Pawn', Rules.path+'White_Pawn.gif', 'white', column, row))
             elif row == 7:
                 if column == 0:
+                    # in your on_click() function you check to see if the piece is 'white', but below they are all 'White'
+                    # python is case sensitive - make them all lower case 'white'
                     rowlist.append(Rules.Rook('Rook', Rules.path+'White_Rook.gif', 'White', column, row))
                 elif column == 1:
                     rowlist.append(Rules.Knight('Knight', Rules.path+'White_Knight.gif', 'White', column, row))
