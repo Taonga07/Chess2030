@@ -113,21 +113,21 @@ def reset_board():
                 if column == 0:
                     # in your on_click() function you check to see if the piece is 'white', but below they are all 'White'
                     # python is case sensitive - make them all lower case 'white'
-                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Rook.gif', 'White', column, row))
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Rook.gif', 'white', column, row))
                 elif column == 1:
-                    rowlist.append(Rules.Knight('Knight', Rules.path+'White_Knight.gif', 'White', column, row))
+                    rowlist.append(Rules.Knight('Knight', Rules.path+'White_Knight.gif', 'white', column, row))
                 elif column == 2:
-                    rowlist.append(Rules.Bishop('Bishop', Rules.path+'White_Bishop.gif', 'White', column, row))
+                    rowlist.append(Rules.Bishop('Bishop', Rules.path+'White_Bishop.gif', 'white', column, row))
                 elif column == 3:
-                    rowlist.append(Rules.Queen('Queen', Rules.path+'White_Queen.gif', 'White', column, row))
+                    rowlist.append(Rules.Queen('Queen', Rules.path+'White_Queen.gif', 'white', column, row))
                 elif column == 4:
-                    rowlist.append(Rules.King('King', Rules.path+'White_King.gif', 'White', column, row))
+                    rowlist.append(Rules.King('King', Rules.path+'White_King.gif', 'white', column, row))
                 elif column == 5:
-                    rowlist.append(Rules.Bishop('Bishop', Rules.path+'White_Bishop.gif', 'White', column, row)) 
+                    rowlist.append(Rules.Bishop('Bishop', Rules.path+'White_Bishop.gif', 'white', column, row)) 
                 elif column == 6:
-                    rowlist.append(Rules.Knight('Knight', Rules.path+'White_Knight.gif', 'White', column, row))
+                    rowlist.append(Rules.Knight('Knight', Rules.path+'White_Knight.gif', 'white', column, row))
                 elif column == 7:
-                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Rook.gif', 'White', column, row))
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Rook.gif', 'white', column, row))
             else:
                 rowlist.append(None)
         board.append(rowlist)
