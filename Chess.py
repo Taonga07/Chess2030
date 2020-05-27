@@ -247,8 +247,8 @@ def on_click(event):
                 # stop
                 move_piece = False 
     
-    elif (Rules.turn == 0 and piece_clicked.colour == 'white') or (Rules.turn == 1 and piece_clicked.colour == 'black'):
-        tkinter.messagebox.showerror("It is not your turn!")
+    elif (Rules.turn == 0 and piece_clicked.colour == 'black') or (Rules.turn == 1 and piece_clicked.colour == 'white'):
+        tkinter.messagebox.showerror("move not allowed", "It is not your turn!")
         mssg = "It is not your turn!"
         mssg_bar(window, mssg)
     else:
