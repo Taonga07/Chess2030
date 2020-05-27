@@ -246,7 +246,11 @@ def on_click(event):
                     mssg_bar(window, mssg)
                 # stop
                 move_piece = False 
-
+    
+    elif (Rules.turn == 0 and piece_clicked.colour == 'white') or (Rules.turn == 1 and piece_clicked.colour == 'black'):
+        tkinter.messagebox.showerror("It is not your turn!")
+        mssg = "It is not your turn!"
+        mssg_bar(window, mssg)
     else:
         tkinter.messagebox.showerror("Error","An error has ocurred!")
         mssg = "An error has ocurred!"
