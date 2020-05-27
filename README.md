@@ -10,10 +10,11 @@ The Rules are being developed at the moment. Get an example in the [Rules](https
 
 A list of jobs for this game can be found here.
 
-- [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
-- [x] list syntax required (any unordered or ordered list supported)
-- [x] this is a complete item
-- [ ] this is an incomplete item
+- [x] most of pawn rules
+- [ ] pawn exchange
+- [ ] highlight possible moves
+- [x] all pieces on board
+- [x] all pieces can move
 
 [![button](https://user-images.githubusercontent.com/56770626/81318448-2f315100-9086-11ea-90e0-f983cff24e33.png)](https://repl.it/@Taonga07/Chess2030)
 
