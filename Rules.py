@@ -60,11 +60,13 @@ class Pawn(GameObject):
             # if we're on column 7 (the last one on the row), we can't check column + 1 because it's off the board
             if self.column < 7:
                 if board[self.row - 1][self.column + 1] != None:
-                    self.possible_moves.append((self.row - 1, self.column + 1))
+                    if board[self.row - 1][self.column + 1].colour != 'white':
+                        self.possible_moves.append((self.row - 1, self.column + 1))
             # and if we're on the first column, we can't check column - 1
             if self.column > 0:
                 if board[self.row - 1][self.column - 1] != None:
-                    self.possible_moves.append((self.row - 1, self.column - 1))
+                    if board[self.row - 1][self.column - 1].colour != 'white':
+                        self.possible_moves.append((self.row - 1, self.column - 1))
         
         elif self.colour == 'black':
             # if the square in front of us is clear, we can move to it
@@ -75,21 +77,17 @@ class Pawn(GameObject):
                     self.possible_moves.append((self.row + 2, self.column))
             # if we're on column 7 (the last one on the row), we can't check column + 1 because it's off the board
             if self.column < 7:
-                if board[self.row + 1][self.column + 1] != None:
-                    self.possible_moves.append((self.row + 1, self.column + 1))
+                if board[self.row + 1][self.column + 1] != None :
+                    if board[self.row + 1][self.column + 1].colour != 'black':
+                        self.possible_moves.append((self.row + 1, self.column + 1))
             # and if we're on the first column, we can't check column - 1
             if self.column > 0:
                 if board[self.row + 1][self.column - 1] != None:
-                    self.possible_moves.append((self.row + 1, self.column - 1))
+                    if board[self.row + 1][self.column - 1].colour != 'black':
+                        self.possible_moves.append((self.row + 1, self.column - 1))
             #if board[self.row + 1][self.column] == board[7][self.column]:
                 
         print('possible moves', self.possible_moves)
-        #how would i highlight pieces from here i kow it is like:
-        ## square.config('green')
-        # but it dose not work
-        #attacking piece colour == 'red'
-        #my piece == 'blue'
-        #normal alowed moves == 'green'
 
 class Rook(GameObject):
     def __init__(self, piece, icon, colour, column, row):
