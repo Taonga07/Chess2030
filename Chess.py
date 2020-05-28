@@ -244,8 +244,13 @@ def on_click(event):
                 #if check_move == True : #checks rules ## did not have == True on end
                 if valid_move:
                     # if a pawn and was first move set firstmove to false
-                    if (piece_to_move.piece == 'pawn') and (piece_to_move.piece.first_move == True):
-                        piece_to_move.piece.first_move = False
+                    # these lines are wrong, you don't need the .piece
+                    # you also had a captialisation error 'Pawn' != 'pawn'
+                    #if (piece_to_move.piece == 'Pawn') and (piece_to_move.first_move == True):
+                    # there's actually a better way of checking this
+                    if isinstance(piece_to_move, Rules.Pawn) and piece_to_move.first_move:
+                        #piece_to_move.piece.first_move = False
+                        piece_to_move.first_move = False
                     #we have already set our piece to move above, so we can use that below to simplify the code below
                     #board[row_number][column_number] = board[Rules.square_clicked[0]][Rules.square_clicked[1]]#moves piece there
                     board[row_number][column_number] = piece_to_move
