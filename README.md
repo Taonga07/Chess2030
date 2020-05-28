@@ -1,4 +1,3 @@
-# Chess2030 - master branch
 # Chess2030 - Rules
 
 At the moment this is where the rules are kept!
