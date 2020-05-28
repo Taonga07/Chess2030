@@ -1,6 +1,7 @@
 # Chess2030 - master branch
 
-![image](https://user-images.githubusercontent.com/56770626/83164200-d9d7e500-a103-11ea-8641-bb5cbbe83f0c.png)
+![image](https://user-images.githubusercontent.com/56770626/83164817-9336ba80-a104-11ea-97c7-289f67ee2524.png)
+
 
 
 This is a two player game; playing against computer is not an option yet but could be.
