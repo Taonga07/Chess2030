@@ -13,12 +13,20 @@ class GameObject():
     def move_piece(self, new_position):
         self.row, self.column = new_position
 
-    def highlight_moves(self, square, board):
+    def highlight_moves(self, window, board):
+        # first lets check we have some valid moves and we can figure out if we're moving a piece or taking a piece
         for i in self.possible_moves:
-            row, column = i
-            if i != board[row][column]:
+            row_number, column_number = i
+            # .grid_slaves returns a list of widget objects in the parent widget
+            # in this case we're getting the list of widgets in a particular row/column
+            # there's only one thing in the list, but it's still a list, so we assign the [0] to pull out the object as square
+            square = window.grid_slaves(row = row_number, column = column_number)[0]
+            if board[row_number][column_number] == None:
+                # this works
+                #print('clear square at', i)
                 square.config(bg='green')
             else:
+                #print('take piece at:', i)
                 square.config(bg='red')
 
     def check_move(self, destination_square):
@@ -75,7 +83,6 @@ class Pawn(GameObject):
                     self.possible_moves.append((self.row + 1, self.column - 1))
             #if board[self.row + 1][self.column] == board[7][self.column]:
                 
-        
         print('possible moves', self.possible_moves)
         #how would i highlight pieces from here i kow it is like:
         ## square.config('green')

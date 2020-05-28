@@ -208,8 +208,10 @@ def on_click(event):
             Rules.old_colour = piece_clicked.colour
             # you're not actually saving the piece, you're saving the square that has been clicked
             Rules.square_clicked = square_clicked #row_number,column_number
-            board[square_clicked[0]][square_clicked[1]].find_moves(board)
-            board[square_clicked[0]][square_clicked[1]].highlight_moves(square, board)
+            # lets use piece_clicked
+            piece_clicked.find_moves(board)
+            # instead of passing the square (the one we're on), we'll pass the whole window of widgets
+            piece_clicked.highlight_moves(window, board)
             mssg_bar(window, mssg)
             return
         else: # this is our second click, we are selecting the square to move to
