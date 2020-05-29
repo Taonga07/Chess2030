@@ -160,6 +160,9 @@ class King(GameObject):
 
     def find_moves(self, board): 
         self.possible_moves = []
+        # remember, you need to check if you're on the edge of the board
+        # otherwise, row = 8 will be a valid move on the first move
+        # when it's off the board
         self.possible_moves.append((self.row+1, self.column))
         self.possible_moves.append((self.row+1, self.column+1))
         self.possible_moves.append((self.row+1, self.column-1))
@@ -170,6 +173,8 @@ class King(GameObject):
         self.possible_moves.append((self.row, self.column-1))
         for i in self.possible_moves:
             row, column = i
+            # delete line below once the code works
+            print('row:', row, 'column', column)
             if board[row][column] != None:
                 if board[row][column].colour != self.colour:
                     self.possible_moves.remove(i)
@@ -192,6 +197,7 @@ class Knight(GameObject):
 
     def find_moves(self, board): 
         self.possible_moves = []
+        # knight will have same issue King has/had
         self.possible_moves.append((self.row+2, self.column-1))
         self.possible_moves.append((self.row+2, self.column+1))
         self.possible_moves.append((self.row-2, self.column-1))
