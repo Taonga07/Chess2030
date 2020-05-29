@@ -153,8 +153,10 @@ class King(GameObject):
         self.possible_moves.append((self.row, self.column-1))
         for i in self.possible_moves:
             row, column = i
-            if board[row][column].colour != self.colour:
-                self.possible_moves.remove(i)
+            if board[row][column] != None:
+                if board[row][column].colour != self.colour:
+                    self.possible_moves.remove(i)
+
         
 class Queen(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -183,8 +185,9 @@ class Knight(GameObject):
         self.possible_moves.append((self.row+1, self.column-2))
         for i in self.possible_moves:
             row, column = i
-            if board[row][column].colour != self.colour:
-                self.possible_moves.remove(i)
+            if board[row][column] != None:
+                if board[row][column].colour != self.colour:
+                    self.possible_moves.remove(i)
 
 # our varibles/lists
 
