@@ -98,13 +98,25 @@ class Rook(GameObject):
     def find_moves(self, board):
         self.possible_moves = []
         #right
-        for i in range(0, abs(7 - self.column)):
+        # if you start your range from 0, the the first loop i = 0
+        # so you'll be checking your own square; self.column + 0 = self.column
+        # so you need to start at 1
+        # and python will stop one before the last number
+        # so if we're in column[0] we want to check columns 1, 2, 3, 4, 5, 6, 7
+        # so our loop needs to go to 8
+        # you also don't need abs() since your column number will always be 7 or less
+        #for i in range(0, abs(7 - self.column)):
+        for i in range(1, (8 - self.column)):
             if board[self.row][self.column + i] == None :
                 self.possible_moves.append((self.row, self.column + i))
             else:
                 # need to be able to stop i loop
+                # you want to check if the first other piece you encounter is the opposite colour to this peice
+                if self.colour != board[self.row][self.column + i].colour:
+                    self.possible_moves.append((self.row, self.column + i))
                 break
         #left
+        # then make similar changes to the other three directions Rook's can move
         for i in range(0, abs(0 - self.column)):
             if board[self.row][self.column - i] == None :
                 self.possible_moves.append((self.row, self.column +-i))
