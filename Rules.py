@@ -96,7 +96,35 @@ class Rook(GameObject):
         self.value = 4
 
     def find_moves(self, board):
-        pass
+        self.possible_moves = []
+        #right
+        for i in range(0, abs(7 - self.column)):
+            if board[self.row][self.column + i] == None :
+                self.possible_moves.append((self.row, self.column + i))
+            else:
+                # need to be able to stop i loop
+                break
+        #left
+        for i in range(0, abs(0 - self.column)):
+            if board[self.row][self.column - i] == None :
+                self.possible_moves.append((self.row, self.column +-i))
+            else:
+                # need to be able to stop i loop
+                break
+        #up
+        for i in range(0, abs(7 - self.row)):
+            if board[self.row - i][self.row] == None :
+                self.possible_moves.append((self.row- i, self.column))
+            else:
+                # need to be able to stop i loop
+                break
+        #down
+        for i in range(0, abs(7 - self.row)):
+            if board[self.row + i][self.column] == None :
+                self.possible_moves.append((self.row + i, self.column))
+            else:
+                # need to be able to stop i loop
+                break
 
 class Bishop(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -114,8 +142,20 @@ class King(GameObject):
         self.value = 1
 
     def find_moves(self, board): 
-        pass
-
+        self.possible_moves = []
+        self.possible_moves.append((self.row+1, self.column))
+        self.possible_moves.append((self.row+1, self.column+1))
+        self.possible_moves.append((self.row+1, self.column-1))
+        self.possible_moves.append((self.row-1, self.column))
+        self.possible_moves.append((self.row-1, self.column+1))
+        self.possible_moves.append((self.row-1, self.column-1))
+        self.possible_moves.append((self.row, self.column+1))
+        self.possible_moves.append((self.row, self.column-1))
+        for i in self.possible_moves:
+            row, column = i
+            if board[row][column].colour != self.colour:
+                self.possible_moves.remove(i)
+        
 class Queen(GameObject):
     def __init__(self, piece, icon, colour, column, row):
         super().__init__(piece, icon, colour, column, row, 4)
@@ -132,7 +172,19 @@ class Knight(GameObject):
         self.value = 5
 
     def find_moves(self, board): 
-        pass
+        self.possible_moves = []
+        self.possible_moves.append((self.row+2, self.column-1))
+        self.possible_moves.append((self.row+2, self.column+1))
+        self.possible_moves.append((self.row-2, self.column-1))
+        self.possible_moves.append((self.row-2, self.column+1))
+        self.possible_moves.append((self.row-1, self.column+2))
+        self.possible_moves.append((self.row+1, self.column+1))
+        self.possible_moves.append((self.row-1, self.column-2))
+        self.possible_moves.append((self.row+1, self.column-2))
+        for i in self.possible_moves:
+            row, column = i
+            if board[row][column].colour != self.colour:
+                self.possible_moves.remove(i)
 
 # our varibles/lists
 
