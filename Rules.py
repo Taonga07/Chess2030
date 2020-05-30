@@ -97,50 +97,42 @@ class Rook(GameObject):
 
     def find_moves(self, board):
         self.possible_moves = []
-        #right
-        # if you start your range from 0, the the first loop i = 0
-        # so you'll be checking your own square; self.column + 0 = self.column
-        # so you need to start at 1
-        # and python will stop one before the last number
-        # so if we're in column[0] we want to check columns 1, 2, 3, 4, 5, 6, 7
-        # so our loop needs to go to 8
-        # you also don't need abs() since your column number will always be 7 or less
-        #for i in range(0, abs(7 - self.column)):
+        #right 
         for i in range(1, (8 - self.column)):
-            if board[self.row][self.column + i + 1] == None :
-                self.possible_moves.append((self.row, self.column + i + 1))
+            if board[self.row][self.column + i ] == None :
+                self.possible_moves.append((self.row, self.column + i ))
             else:
                 # need to be able to stop i loop
                 # you want to check if the first other piece you encounter is the opposite colour to this peice
-                if self.colour != board[self.row][self.column + i + 1].colour:
-                    self.possible_moves.append((self.row, self.column + i + 1))
+                if self.colour != board[self.row][self.column + i ].colour:
+                    self.possible_moves.append((self.row, self.column + i ))
                 break
         #left
         # then make similar changes to the other three directions Rook's can move
         for i in range(0, abs(0 - self.column)):
-            if board[self.row][self.column - i + 1] == None :
-                self.possible_moves.append((self.row, self.column + i + 1))
+            if board[self.row][self.column - i ] == None :
+                self.possible_moves.append((self.row, self.column + i ))
             else:
                 # need to be able to stop i loop
-                if self.colour != board[self.row][self.column - i + 1].colour:
-                    self.possible_moves.append((self.row, self.column - i + 1))
+                if self.colour != board[self.row][self.column - i ].colour:
+                    self.possible_moves.append((self.row, self.column - i ))
                 break
         #up
         for i in range(0, abs(7 - self.row)):
-            if board[self.row - i  + 1][self.row] == None :
-                self.possible_moves.append((self.row - i + 1, self.column))
+            if board[self.row - i  ][self.row] == None :
+                self.possible_moves.append((self.row - i , self.column))
             else:
                 # need to be able to stop i loop
-                if self.colour != board[self.row - i + 1][self.column].colour:
-                    self.possible_moves.append((self.row - i + 1, self.column))
+                if self.colour != board[self.row - i ][self.column].colour:
+                    self.possible_moves.append((self.row - i , self.column))
                 break
         #down
         for i in range(0, abs(7 - self.row)):
-            if board[self.row + i  + 1][self.column] == None :
-                self.possible_moves.append((self.row + i + 1, self.column))
+            if board[self.row + i  ][self.column] == None :
+                self.possible_moves.append((self.row + i , self.column))
             else:
-                if self.colour != board[self.row + i + 1][self.column].colour:
-                    self.possible_moves.append((self.row + i + 1, self.column))
+                if self.colour != board[self.row + i ][self.column].colour:
+                    self.possible_moves.append((self.row + i , self.column))
                 break
 
 class Bishop(GameObject):
@@ -163,18 +155,27 @@ class King(GameObject):
         # remember, you need to check if you're on the edge of the board
         # otherwise, row = 8 will be a valid move on the first move
         # when it's off the board
-        self.possible_moves.append((self.row+1, self.column))
-        self.possible_moves.append((self.row+1, self.column+1))
-        self.possible_moves.append((self.row+1, self.column-1))
-        self.possible_moves.append((self.row-1, self.column))
-        self.possible_moves.append((self.row-1, self.column+1))
-        self.possible_moves.append((self.row-1, self.column-1))
-        self.possible_moves.append((self.row, self.column+1))
-        self.possible_moves.append((self.row, self.column-1))
+        if self.row > 0:
+            self.possible_moves.append((self.row-1, self.column))
+            if self.column > 0:
+                self.possible_moves.append((self.row-1, self.column-1))
+            if self.column < 7:
+                self.possible_moves.append((self.row-1, self.column+1))
+        if self.row < 7:
+            self.possible_moves.append((self.row+1, self.column))
+            if self.column > 0:
+                self.possible_moves.append((self.row-1, self.column+1))
+            if self.column < 7:
+                self.possible_moves.append((self.row+1, self.column-1))
+        if (self.column < 7) and (self.column > 0):
+            self.possible_moves.append((self.row, self.column+1))
+            self.possible_moves.append((self.row, self.column-1))
+            
         for i in self.possible_moves:
             row, column = i
-            # delete line below once the code works
+            # delete line below once the code worksc q2222222
             print('row:', row, 'column', column)
+            print('possible moves:', i)
             if board[row][column] != None:
                 if board[row][column].colour != self.colour:
                     self.possible_moves.remove(i)
