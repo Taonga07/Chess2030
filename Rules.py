@@ -98,42 +98,46 @@ class Rook(GameObject):
     def find_moves(self, board):
         self.possible_moves = []
         #right 
-        for i in range(1, (8 - self.column)):
-            if board[self.row][self.column + i ] == None :
-                self.possible_moves.append((self.row, self.column + i ))
-            else:
-                # need to be able to stop i loop
-                # you want to check if the first other piece you encounter is the opposite colour to this peice
-                if self.colour != board[self.row][self.column + i ].colour:
+        if self.column < 7:
+            for i in range(1, (8 - self.column)):
+                if board[self.row][self.column + i ] == None :
                     self.possible_moves.append((self.row, self.column + i ))
-                break
+                else:
+                    # need to be able to stop i loop
+                    # you want to check if the first other piece you encounter is the opposite colour to this peice
+                    if self.colour != board[self.row][self.column + i ].colour:
+                        self.possible_moves.append((self.row, self.column + i ))
+                    break
         #left
         # then make similar changes to the other three directions Rook's can move
-        for i in range(0, abs(0 - self.column)):
-            if board[self.row][self.column - i ] == None :
-                self.possible_moves.append((self.row, self.column + i ))
-            else:
-                # need to be able to stop i loop
-                if self.colour != board[self.row][self.column - i ].colour:
-                    self.possible_moves.append((self.row, self.column - i ))
-                break
+        if self.column > 0:
+            for i in range(1, 8 - self.column):
+                if board[self.row][self.column - i ] == None :
+                    self.possible_moves.append((self.row, self.column + i ))
+                else:
+                    # need to be able to stop i loop
+                    if self.colour != board[self.row][self.column - i ].colour:
+                        self.possible_moves.append((self.row, self.column - i ))
+                    break
         #up
-        for i in range(0, abs(7 - self.row)):
-            if board[self.row - i  ][self.row] == None :
-                self.possible_moves.append((self.row - i , self.column))
-            else:
-                # need to be able to stop i loop
-                if self.colour != board[self.row - i ][self.column].colour:
+        if self.row > 0:
+            for i in range(1, 8 - self.row):
+                if board[self.row - i  ][self.row] == None :
                     self.possible_moves.append((self.row - i , self.column))
-                break
+                else:
+                    # need to be able to stop i loop
+                    if self.colour != board[self.row - i ][self.column].colour:
+                        self.possible_moves.append((self.row - i , self.column))
+                    break
         #down
-        for i in range(0, abs(7 - self.row)):
-            if board[self.row + i  ][self.column] == None :
-                self.possible_moves.append((self.row + i , self.column))
-            else:
-                if self.colour != board[self.row + i ][self.column].colour:
+        if self.row < 7:
+            for i in range(1, 8 - self.row):
+                if board[self.row + i  ][self.column] == None :
                     self.possible_moves.append((self.row + i , self.column))
-                break
+                else:
+                    if self.colour != board[self.row + i ][self.column].colour:
+                        self.possible_moves.append((self.row + i , self.column))
+                    break
 
 class Bishop(GameObject):
     def __init__(self, piece, icon, colour, column, row):
