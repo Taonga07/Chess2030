@@ -122,7 +122,7 @@ class Rook(GameObject):
         #up
         if self.row > 0:
             for i in range(1, 8 - self.row):
-                if board[self.row - i  ][self.row] == None :
+                if board[self.row - i  ][self.column] == None :
                     self.possible_moves.append((self.row - i , self.column))
                 else:
                     # need to be able to stop i loop
