@@ -19,9 +19,8 @@ class GameObject():
             square = window.grid_slaves(row = row_number, column = column_number)[0] 
             if board[row_number][column_number] == None: #if there is nothing at position i
                 square.config(bg='green') # highlight position i green
-            else: # none has no attrubrite to clour this stops this error
-                print(self.colour, board[row_number][column_number].color) 
-                if board[row_number][column_number].color != self.colour:
+            else: # none has no attrubrite to clour this stops this error 
+                if board[row_number][column_number].colour != self.colour:
                     square.config(bg='red') # highlight position i red
 
     def check_move(self, destination_square):
@@ -106,8 +105,32 @@ class Bishop(GameObject):
         self.value = 3
 
     def find_moves(self, board): 
-        self.possible_moves = []
         pass
+
+class King(GameObject):
+    def __init__(self, piece, icon, colour, column, row):
+        super().__init__(piece, icon, colour, column, row, 4)
+        self.piece = 'King'
+        self.value = 1
+
+    def find_moves(self, board): 
+        self.possible_moves = []
+        if self.row > 0:
+            self.possible_moves.append((self.row-1, self.column))
+            if self.column > 0:
+                self.possible_moves.append((self.row-1, self.column-1))
+            if self.column < 7:
+                self.possible_moves.append((self.row-1, self.column+1))
+        if self.row < 7:
+            self.possible_moves.append((self.row+1, self.column))
+            if self.column > 0:
+                self.possible_moves.append((self.row-1, self.column+1))
+            if self.column < 7:
+                self.possible_moves.append((self.row+1, self.column-1))
+        if (self.column < 7) and (self.column > 0):
+            self.possible_moves.append((self.row, self.column+1))
+            self.possible_moves.append((self.row, self.column-1))
+            
 
         
 class Queen(GameObject):
