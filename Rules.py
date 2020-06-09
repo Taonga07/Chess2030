@@ -30,8 +30,8 @@ class GameObject():
                 square.config(bg='red')
 
     def check_move(self, destination_square):
-        if self.possible_moves == []:
-            return True
+        ##if self.possible_moves == []:
+            ##return True
         for i in self.possible_moves:
             if i == destination_square:
                 return True
@@ -111,7 +111,7 @@ class Rook(GameObject):
         #left
         # then make similar changes to the other three directions Rook's can move
         if self.column > 0:
-            for i in range(1, 8 - self.column):
+            for i in range(1, self.column):
                 if board[self.row][self.column - i ] == None :
                     self.possible_moves.append((self.row, self.column + i ))
                 else:
@@ -121,7 +121,7 @@ class Rook(GameObject):
                     break
         #up
         if self.row > 0:
-            for i in range(1, 8 - self.row):
+            for i in range(1, self.row + 1):
                 if board[self.row - i  ][self.column] == None :
                     self.possible_moves.append((self.row - i , self.column))
                 else:
