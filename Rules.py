@@ -16,7 +16,7 @@ class GameObject():
     def highlight_moves(self, window, board):
         for i in self.possible_moves:
             row_number, column_number = i # get row and column of position i in board
-            square = window.grid_slaves(row = row_number, column = column_number)[0] 
+            square = window.grid_slaves(row = row_number, column = column_number)[0] #returns list of widgets
             if board[row_number][column_number] == None: #if there is nothing at position i
                 square.config(bg='green') # highlight position i green
             else: # none has no attrubrite to clour this stops this error 
@@ -69,8 +69,8 @@ class Rook(GameObject):
 
     def find_moves(self, board):
         self.possible_moves = []
-        if self.row < 0: #up 
-            for i in range(1, (self.row+1)):
+        if self.row > 0: #up 
+            for i in range(0, self.row):
                 if board[self.row - i][self.column] == None :
                     self.possible_moves.append((self.row - i, self.column))
                 else:
@@ -83,8 +83,8 @@ class Rook(GameObject):
                 else:
                     self.possible_moves.append((self.row + i , self.column))
                     break
-        if self.column < 0: #left 
-            for i in range(1, (self.column+1)):
+        if self.column > 0: #left 
+            for i in range(1, (8 - self.column)):
                 if board[self.row][self.column - i ] == None :
                     self.possible_moves.append((self.row, self.column - i ))
                 else:
@@ -105,7 +105,7 @@ class Bishop(GameObject):
         self.value = 3
 
     def find_moves(self, board): 
-        pass
+        self.possible_moves = []
 
 class King(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -141,9 +141,7 @@ class Queen(GameObject):
 
     def find_moves(self, board):
         self.possible_moves = []
-        Bishop_Moves = Bishop.find_moves(board)
-        Rook_Moves = Rook.find_moves(board)
-        self.possible_moves = Bishop_Moves + Rook_Moves
+        self.possible_moves = Bishop.possible_moves + Rook.possible_moves
 
 class Knight(GameObject):
     def __init__(self, piece, icon, colour, column, row):
