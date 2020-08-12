@@ -70,7 +70,7 @@ class Rook(GameObject):
     def find_moves(self, board):
         self.possible_moves = []
         if self.row > 0: #up 
-            for i in range(0, self.row):
+            for i in range(1, self.row+1):
                 if board[self.row - i][self.column] == None :
                     self.possible_moves.append((self.row - i, self.column))
                 else:
@@ -84,7 +84,7 @@ class Rook(GameObject):
                     self.possible_moves.append((self.row + i , self.column))
                     break
         if self.column > 0: #left 
-            for i in range(1, (8 - self.column)):
+            for i in range(1, self.column+1):
                 if board[self.row][self.column - i ] == None :
                     self.possible_moves.append((self.row, self.column - i ))
                 else:
@@ -124,11 +124,12 @@ class King(GameObject):
         if self.row < 7:
             self.possible_moves.append((self.row+1, self.column))
             if self.column > 0:
-                self.possible_moves.append((self.row-1, self.column+1))
-            if self.column < 7:
                 self.possible_moves.append((self.row+1, self.column-1))
-        if (self.column < 7) and (self.column > 0):
+            if self.column < 7:
+                self.possible_moves.append((self.row+1, self.column+1))
+        if self.column < 7: 
             self.possible_moves.append((self.row, self.column+1))
+        if self.column > 0:
             self.possible_moves.append((self.row, self.column-1))
             
 
@@ -151,14 +152,22 @@ class Knight(GameObject):
 
     def find_moves(self, board): 
         self.possible_moves = []
-        self.possible_moves.append((self.row+2, self.column-1))
-        self.possible_moves.append((self.row+2, self.column+1))
-        self.possible_moves.append((self.row-2, self.column-1))
-        self.possible_moves.append((self.row-2, self.column+1))
-        self.possible_moves.append((self.row-1, self.column+2))
-        self.possible_moves.append((self.row+1, self.column+1))
-        self.possible_moves.append((self.row-1, self.column-2))
-        self.possible_moves.append((self.row+1, self.column-2))
+        if self.row < 6 and self.column > 0:
+            self.possible_moves.append((self.row+2, self.column-1))
+        if self.row < 6 and self.column < 7:
+            self.possible_moves.append((self.row+2, self.column+1))
+        if self.row > 1 and self.column > 0:
+            self.possible_moves.append((self.row-2, self.column-1))
+        if self.row > 1 and self.column < 7:
+            self.possible_moves.append((self.row-2, self.column+1))
+        if self.row > 0 and self.column < 6:
+            self.possible_moves.append((self.row-1, self.column+2))
+        if self.row < 7 and self.column < 6:
+            self.possible_moves.append((self.row+1, self.column+2))
+        if self.row > 0 and self.column > 1:
+            self.possible_moves.append((self.row-1, self.column-2))
+        if self.row < 7 and self.column > 1:
+            self.possible_moves.append((self.row+1, self.column-2))
 
 
 # our varibles/lists
