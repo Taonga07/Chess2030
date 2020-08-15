@@ -4,16 +4,14 @@ from tkinter import messagebox
 board = None
 window = None
 
-
 def set_up_window():
     global window
     window = tkinter.Tk()
     window.title('chess')
     window.tk.call('wm', 'iconphoto', window._w, tkinter.PhotoImage(file=Rules.path + 'Icon.png'))
     start(window)
-    menu(window)
+    File.menu(window)
     window.mainloop()
-
 
 def start(window):
     photo = tkinter.PhotoImage(file=Rules.path + "Intro.gif")
@@ -21,69 +19,12 @@ def start(window):
     w.image = photo
     w.pack()
 
-
 def play_chess(window):
     global board
     destroy_all_widgets(window)
-    menu(window)
+    File.menu(window)
     board = reset_board()
     layout_board(window, board)
-
-
-def menu(window):
-    #    board = reset_board()
-
-    menubar = tkinter.Menu(window)
-
-    filemenu = tkinter.Menu(menubar, tearoff=0)
-    editmenu = tkinter.Menu(menubar, tearoff=0)
-    viewmenu = tkinter.Menu(menubar, tearoff=0)
-    toolmenu = tkinter.Menu(menubar, tearoff=0)
-    helpmenu = tkinter.Menu(menubar, tearoff=0)
-
-    filemenu.add_command(label="New", command=lambda: play_chess(window))
-    filemenu.add_command(
-        label="Open", command=lambda: File.onOpen(window, board))
-    filemenu.add_command(label="Save", command=lambda: File.onSave(board))
-    filemenu.add_separator()
-    filemenu.add_command(label="Exit", command=lambda: window.destroy())
-
-    editmenu.add_command(
-        label="custormise pieces", command=lambda: File.openGuide())
-    editmenu.add_command(
-        label="custormise board", command=lambda: File.openGuide())
-    editmenu.add_checkbutton(
-        label='Blindfold Chess', command=lambda: File.openGuide())
-
-    viewmenu.add_checkbutton(label='points', command=lambda: File.openGuide())
-    viewmenu.add_checkbutton(
-        label='pieces taken', command=lambda: File.openGuide())
-    viewmenu.add_checkbutton(
-        label='computer evaluation', command=lambda: File.openGuide())
-    viewmenu.add_command(
-        label="game history", command=lambda: File.openGuide())
-
-    toolmenu.add_command(label="takeback", command=lambda: File.openGuide())
-    toolmenu.add_command(label="flip board", command=lambda: File.openGuide())
-    toolmenu.add_command(
-        label="Request stalemate", command=lambda: File.openGuide())
-    toolmenu.add_command(label="Resighn", command=lambda: File.openGuide())
-    toolmenu.add_command(label="hint", command=lambda: File.openGuide())
-
-    helpmenu.add_command(label="Open Guide", command=lambda: File.openGuide())
-
-    menubar.add_cascade(label="File", menu=filemenu)
-    menubar.add_cascade(label="Edit", menu=editmenu)
-    menubar.add_cascade(label="View", menu=viewmenu)
-    menubar.add_cascade(label="Tools", menu=toolmenu)
-    menubar.add_cascade(label="Help", menu=helpmenu)
-
-    window.config(menu=menubar)
-    #img1 = tkinter.PhotoImage(Rules.path+'icon.png')
-    #b = tkinter.Button(menubar, image=img1, width=6)
-    #b.image = img1
-    #b.pack(side=tkinter.RIGHT)
-
 
 def destroy_all_widgets(window):
     for widget in window.winfo_children():
