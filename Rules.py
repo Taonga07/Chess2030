@@ -13,25 +13,54 @@ class GameObject():
     def move_piece(self, new_position):
         self.row, self.column = new_position
 
-    def highlight_moves(self, square, board):
+    def highlight_moves(self, window, board):
         for i in self.possible_moves:
-            row, column = i
-            if i != board[row][column]:
-                square.config(bg='green')
-            else:
-                square.config(bg='red')
+            row_number, column_number = i # get row and column of position i in board
+            square = window.grid_slaves(row = row_number, column = column_number)[0] #returns list of widgets
+            if board[row_number][column_number] == None: #if there is nothing at position i
+                square.config(bg='green') # highlight position i green
+            else: # none has no attrubrite to clour this stops this error 
+                if board[row_number][column_number].colour != self.colour:
+                    square.config(bg='red') # highlight position i red
 
     def check_move(self, destination_square):
-        if self.possible_moves == []:
+        for i in self.possible_moves: # goes through each possple move possition
+            if i == destination_square: # if where we are moving to is an postion in possible moves
+                return True # say yes you can move
+        #if we go through loop and none of the squares is our hopful next square
+        return False # say no you can not mve there
+
+    def find_validSquare(self, working_value):
+        # check if working row and column is in the board
+        x,y = working_value
+        if x >=0 and x <= 7 and y >= 0 and y <=7:
             return True
-        for i in self.possible_moves:
-            if i == destination_square:
-                return True
-            # if you put else here, it will check your destination against the first possible move
-            # and if it's not valid, it'll exit without checking the others
-            
-        # you want to check all possible moves, and then exit with False if none are valid
         return False
+    def explore_moves(self, direction, board):
+        # find posissible moves acording to what has been passed into it
+        # find posissible moves acording to what has been passed into it
+        ##example 1
+        ## we ge direction= 1, 1
+        ## bishop curren sqare is 7,4
+        # we get an empty list 
+        ##example 2
+        ## we ge direction= 1, 1
+        ## bishop curren sqare is 3,4
+        # we get an list with the values (4,5), (5,6), (6,7)
+        working_value = self.row, self.column
+        moves = []
+        while True:
+            ##find_validSquare(working_value) and working_value != None:
+            working_value = ((working_value[0] + direction[0]), (working_value[1] + direction[1])) 
+            if self.find_validSquare(working_value) == True:
+                if board[working_value[0]][working_value[1]] == None:
+                    moves.append(working_value)
+                else:
+                    moves.append(working_value)
+                    break
+            else:
+                break
+        return moves
 
 class Pawn(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -42,47 +71,27 @@ class Pawn(GameObject):
     def find_moves(self, board):
         self.possible_moves = []
         if self.colour == 'white':
-            # if the square in front of us is clear, we can move to it
             if board[self.row - 1][self.column] == None: 
                 self.possible_moves.append((self.row - 1, self.column))
-                # if its our first move the the square 2 in front is clear, we can move to it also
                 if ( board[self.row - 2][self.column] == None ) and (self.first_move == True):
                     self.possible_moves.append((self.row - 2, self.column))
-            # these are not elif, they are new if conditional statements
-            # if we're on column 7 (the last one on the row), we can't check column + 1 because it's off the board
             if self.column < 7:
                 if board[self.row - 1][self.column + 1] != None:
                     self.possible_moves.append((self.row - 1, self.column + 1))
-            # and if we're on the first column, we can't check column - 1
             if self.column > 0:
                 if board[self.row - 1][self.column - 1] != None:
                     self.possible_moves.append((self.row - 1, self.column - 1))
-        
         elif self.colour == 'black':
-            # if the square in front of us is clear, we can move to it
             if board[self.row + 1][self.column] == None: 
                 self.possible_moves.append((self.row + 1, self.column))
-                # if its our first move the the square 2 in front is clear, we can move to it also
                 if ( board[self.row + 2][self.column] == None ) and (self.first_move == True):
                     self.possible_moves.append((self.row + 2, self.column))
-            # if we're on column 7 (the last one on the row), we can't check column + 1 because it's off the board
             if self.column < 7:
-                if board[self.row + 1][self.column + 1] != None:
+                if board[self.row + 1][self.column + 1] != None :
                     self.possible_moves.append((self.row + 1, self.column + 1))
-            # and if we're on the first column, we can't check column - 1
             if self.column > 0:
                 if board[self.row + 1][self.column - 1] != None:
                     self.possible_moves.append((self.row + 1, self.column - 1))
-            #if board[self.row + 1][self.column] == board[7][self.column]:
-                
-        
-        print('possible moves', self.possible_moves)
-        #how would i highlight pieces from here i kow it is like:
-        ## square.config('green')
-        # but it dose not work
-        #attacking piece colour == 'red'
-        #my piece == 'blue'
-        #normal alowed moves == 'green'
 
 class Rook(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -91,7 +100,11 @@ class Rook(GameObject):
         self.value = 4
 
     def find_moves(self, board):
-        pass
+        self.possible_moves = []
+        self.possible_moves.extend(self.explore_moves((-1, 0), board))# up
+        self.possible_moves.extend(self.explore_moves((0, +1), board))# right
+        self.possible_moves.extend(self.explore_moves((0, -1), board))# left
+        self.possible_moves.extend(self.explore_moves((+1, 0), board))# down
 
 class Bishop(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -100,7 +113,11 @@ class Bishop(GameObject):
         self.value = 3
 
     def find_moves(self, board): 
-        pass
+        self.possible_moves = []
+        self.possible_moves.extend(self.explore_moves((-1, -1), board))# up left
+        self.possible_moves.extend(self.explore_moves((-1, +1), board))# up right
+        self.possible_moves.extend(self.explore_moves((+1, -1), board))# down left
+        self.possible_moves.extend(self.explore_moves((+1, +1), board))# down right
 
 class King(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -109,16 +126,44 @@ class King(GameObject):
         self.value = 1
 
     def find_moves(self, board): 
-        pass
+        self.possible_moves = []
+        if self.row > 0:
+            self.possible_moves.append((self.row-1, self.column))
+            if self.column > 0:
+                self.possible_moves.append((self.row-1, self.column-1))
+            if self.column < 7:
+                self.possible_moves.append((self.row-1, self.column+1))
+        if self.row < 7:
+            self.possible_moves.append((self.row+1, self.column))
+            if self.column > 0:
+                self.possible_moves.append((self.row+1, self.column-1))
+            if self.column < 7:
+                self.possible_moves.append((self.row+1, self.column+1))
+        if self.column < 7: 
+            self.possible_moves.append((self.row, self.column+1))
+        if self.column > 0:
+            self.possible_moves.append((self.row, self.column-1))
+            
 
+        
 class Queen(GameObject):
     def __init__(self, piece, icon, colour, column, row):
         super().__init__(piece, icon, colour, column, row, 4)
         self.piece = 'Queen'
         self.value = 9
 
-    def find_moves(self, board): 
-        pass
+    def find_moves(self, board):
+        self.possible_moves = []
+        ##BISHOP MOVES
+        self.possible_moves.extend(self.explore_moves((-1, -1), board))# up left
+        self.possible_moves.extend(self.explore_moves((-1, +1), board))# up right
+        self.possible_moves.extend(self.explore_moves((+1, -1), board))# down left
+        self.possible_moves.extend(self.explore_moves((+1, +1), board))# down right
+        #ROOK MOVES
+        self.possible_moves.extend(self.explore_moves((-1, 0), board))# up
+        self.possible_moves.extend(self.explore_moves((0, +1), board))# right
+        self.possible_moves.extend(self.explore_moves((0, -1), board))# left
+        self.possible_moves.extend(self.explore_moves((+1, 0), board))# down
 
 class Knight(GameObject):
     def __init__(self, piece, icon, colour, column, row):
@@ -127,7 +172,24 @@ class Knight(GameObject):
         self.value = 5
 
     def find_moves(self, board): 
-        pass
+        self.possible_moves = []
+        if self.row < 6 and self.column > 0:
+            self.possible_moves.append((self.row+2, self.column-1))
+        if self.row < 6 and self.column < 7:
+            self.possible_moves.append((self.row+2, self.column+1))
+        if self.row > 1 and self.column > 0:
+            self.possible_moves.append((self.row-2, self.column-1))
+        if self.row > 1 and self.column < 7:
+            self.possible_moves.append((self.row-2, self.column+1))
+        if self.row > 0 and self.column < 6:
+            self.possible_moves.append((self.row-1, self.column+2))
+        if self.row < 7 and self.column < 6:
+            self.possible_moves.append((self.row+1, self.column+2))
+        if self.row > 0 and self.column > 1:
+            self.possible_moves.append((self.row-1, self.column-2))
+        if self.row < 7 and self.column > 1:
+            self.possible_moves.append((self.row+1, self.column-2))
+
 
 # our varibles/lists
 

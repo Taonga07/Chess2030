@@ -9,7 +9,7 @@ def set_up_window():
     global window
     window = tkinter.Tk()
     window.title('chess')
-    window.tk.call('wm', 'iconphoto', window._w, tkinter.PhotoImage(file=Rules.path + 'icon.gif'))
+    window.tk.call('wm', 'iconphoto', window._w, tkinter.PhotoImage(file=Rules.path + 'Icon.png'))
     start(window)
     menu(window)
     window.mainloop()
@@ -208,8 +208,10 @@ def on_click(event):
             Rules.old_colour = piece_clicked.colour
             # you're not actually saving the piece, you're saving the square that has been clicked
             Rules.square_clicked = square_clicked #row_number,column_number
-            board[square_clicked[0]][square_clicked[1]].find_moves(board)
-            board[square_clicked[0]][square_clicked[1]].highlight_moves(square, board)
+            # lets use piece_clicked
+            piece_clicked.find_moves(board)
+            # instead of passing the square (the one we're on), we'll pass the whole window of widgets
+            piece_clicked.highlight_moves(window, board)
             mssg_bar(window, mssg)
             return
         else: # this is our second click, we are selecting the square to move to
@@ -242,8 +244,13 @@ def on_click(event):
                 #if check_move == True : #checks rules ## did not have == True on end
                 if valid_move:
                     # if a pawn and was first move set firstmove to false
-                    if (piece_to_move.piece == 'pawn') and (piece_to_move.piece.first_move == True):
-                        piece_to_move.piece.first_move = False
+                    # these lines are wrong, you don't need the .piece
+                    # you also had a captialisation error 'Pawn' != 'pawn'
+                    #if (piece_to_move.piece == 'Pawn') and (piece_to_move.first_move == True):
+                    # there's actually a better way of checking this
+                    if isinstance(piece_to_move, Rules.Pawn) and piece_to_move.first_move:
+                        #piece_to_move.piece.first_move = False
+                        piece_to_move.first_move = False
                     #we have already set our piece to move above, so we can use that below to simplify the code below
                     #board[row_number][column_number] = board[Rules.square_clicked[0]][Rules.square_clicked[1]]#moves piece there
                     board[row_number][column_number] = piece_to_move
