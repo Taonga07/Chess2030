@@ -23,7 +23,8 @@ def play_chess(window):
     global board
     destroy_all_widgets(window)
     File.menu(window)
-    board = reset_board()
+#    board = reset_board()
+    board = test_board()
     layout_board(window, board)
 
 def destroy_all_widgets(window):
@@ -42,6 +43,57 @@ def mssg_bar(window, mssg):
 
 
 def reset_board():
+    board = []
+    for row in range(0, 8):
+        rowlist = []
+        for column in range(0,8):
+            if row == 0:
+                if column == 0:
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'Black_Rook.gif', 'black', column, row))
+                elif column == 1:
+                    rowlist.append(Rules.Knight('Knight', Rules.path+'Black_Knight.gif', 'black', column, row))
+                elif column == 2:
+                    rowlist.append(Rules.Bishop('Bishop', Rules.path+'Black_Bishop.gif', 'black', column, row))
+                elif column == 3:
+                    rowlist.append(Rules.Queen('Queen', Rules.path+'Black_Queen.gif', 'black', column, row))
+                elif column == 4:
+                    rowlist.append(Rules.King('King', Rules.path+'Black_King.gif', 'black', column, row))
+                elif column == 5:
+                    rowlist.append(Rules.Bishop('Bishop', Rules.path+'Black_Bishop.gif', 'black', column, row)) 
+                elif column == 6:
+                    rowlist.append(Rules.Knight('Knight', Rules.path+'Black_Knight.gif', 'black', column, row))
+                elif column == 7:
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'Black_Rook.gif', 'black', column, row))
+            elif row == 1:
+                rowlist.append(Rules.Pawn('Pawn', Rules.path+'Black_Pawn.gif', 'black', column, row))
+            elif row == 6:
+                # I think this should be a 'black' piece
+                rowlist.append(Rules.Pawn('Pawn', Rules.path+'White_Pawn.gif', 'white', column, row))
+            elif row == 7:
+                if column == 0:
+                    # in your on_click() function you check to see if the piece is 'white', but below they are all 'White'
+                    # python is case sensitive - make them all lower case 'white'
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Rook.gif', 'white', column, row))
+                elif column == 1:
+                    rowlist.append(Rules.Knight('Knight', Rules.path+'White_Knight.gif', 'white', column, row))
+                elif column == 2:
+                    rowlist.append(Rules.Bishop('Bishop', Rules.path+'White_Bishop.gif', 'white', column, row))
+                elif column == 3:
+                    rowlist.append(Rules.Queen('Queen', Rules.path+'White_Queen.gif', 'white', column, row))
+                elif column == 4:
+                    rowlist.append(Rules.King('King', Rules.path+'White_King.gif', 'white', column, row))
+                elif column == 5:
+                    rowlist.append(Rules.Bishop('Bishop', Rules.path+'White_Bishop.gif', 'white', column, row)) 
+                elif column == 6:
+                    rowlist.append(Rules.Knight('Knight', Rules.path+'White_Knight.gif', 'white', column, row))
+                elif column == 7:
+                    rowlist.append(Rules.Rook('Rook', Rules.path+'White_Rook.gif', 'white', column, row))
+            else:
+                rowlist.append(None)
+        board.append(rowlist)
+    return board
+
+def test_board(self):
     board = []
     for row in range(0, 8):
         rowlist = []

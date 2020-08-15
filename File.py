@@ -1,6 +1,6 @@
 from tkinter import filedialog, messagebox
 #from tkinter.colorchooser import askcolor
-import tkinter, Chess, os
+import tkinter, json, Chess, os
 
 def menu(window):
     menubar = tkinter.Menu(window)
@@ -12,31 +12,23 @@ def menu(window):
     helpmenu = tkinter.Menu(menubar, tearoff=0)
 
     filemenu.add_command(label="New", command=lambda: Chess.play_chess(window))
-    filemenu.add_command(
-        label="Open", command=lambda: onOpen(window, Chess.board))
+    filemenu.add_command(label="Open", command=lambda: onOpen(window, Chess.board))
     filemenu.add_command(label="Save", command=lambda: onSave(Chess.board))
     filemenu.add_separator()
     filemenu.add_command(label="Exit", command=lambda: window.destroy())
 
-    editmenu.add_command(
-        label="custormise pieces", command=lambda: openGuide())
-    editmenu.add_command(
-        label="custormise board", command=lambda: openGuide())
-    editmenu.add_checkbutton(
-        label='Blindfold Chess', command=lambda: openGuide())
+    editmenu.add_command(label="custormise pieces", command=lambda: openGuide())
+    editmenu.add_command(label="custormise board", command=lambda: openGuide())
+    editmenu.add_checkbutton(label='Blindfold Chess', command=lambda: openGuide())
 
     viewmenu.add_checkbutton(label='points', command=lambda: openGuide())
-    viewmenu.add_checkbutton(
-        label='pieces taken', command=lambda: openGuide())
-    viewmenu.add_checkbutton(
-        label='computer evaluation', command=lambda: openGuide())
-    viewmenu.add_command(
-        label="game history", command=lambda: openGuide())
+    viewmenu.add_checkbutton(label='pieces taken', command=lambda: openGuide())
+    viewmenu.add_checkbutton(label='computer evaluation', command=lambda: openGuide())
+    viewmenu.add_command(label="game history", command=lambda: openGuide())
 
     toolmenu.add_command(label="takeback", command=lambda: openGuide())
     toolmenu.add_command(label="flip board", command=lambda: openGuide())
-    toolmenu.add_command(
-        label="Request stalemate", command=lambda: openGuide())
+    toolmenu.add_command(label="Request stalemate", command=lambda: openGuide())
     toolmenu.add_command(label="Resighn", command=lambda: openGuide())
     toolmenu.add_command(label="hint", command=lambda: openGuide())
 
@@ -51,22 +43,21 @@ def menu(window):
     window.config(menu=menubar)
 
 def onOpen(window, board):
-    try:
-        Open = filedialog.askopenfilename(initialdir = "/",title = "Open file",filetypes = (("main files","*txt*"),("All files","*.*")))
-        f = open(Open,"r")
-        Chess.board = f.read()
-        Chess.layout_board(window, board)
-    except:
-        tkinter.messagebox.showerror("Error","This is not possible!")
+    File = filedialog.askopenfilename(initialdir = "/",title = "Open file",filetypes = (("main files","*txt*"),("All files","*.*")))
+    board = []
+    with open(File, 'r') as filehandle:
+        for row in range(0, 8):
+            rowlist = []
+            for column in range(0,8):
+                board.append(currentPlace)
 
 def onSave(board):
-    try:
         Save = filedialog.asksaveasfilename(initialdir = "/",title = "Save as",filetypes = (("main files","*txt*"),("All files","*.*")))
-        file = open(Save,"w+")
-        write(board)
-        close()
-    except:
-        tkinter.messagebox.showerror("Error","This is not possible!")
+        with open(Save, 'w') as filehandle:
+            for column_number in range(0, 8):
+                for row_number in range(0,8):
+                    filehandle.write('%s\n' % Chess.board[row_number][column_number])
+
 
 
 def openGuide():
@@ -76,7 +67,7 @@ def openGuide():
         try:
             os.system("notepad Guide.txt")
         except:
-            print("Neither gedit nor notepad could be used to open the ")
+            tkinter.messagebox.showerror("Error","This is not possible!")
 
 #def Set_BoardColor():
 #    win = Window(Tk())
