@@ -11,9 +11,9 @@ The Rules are being developed at the moment. Get an example in the [Rules](https
 
 A list of jobs for this game can be found here.
 
-- [x] major pawn rules
+- [x] all pieces rules
 - [ ] pawn exchange
-- [ ] highlight possible moves
+- [x] highlight possible moves
 - [x] all pieces on board
 - [x] all pieces can move
 
