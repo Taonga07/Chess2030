@@ -143,7 +143,71 @@ class King(GameObject):
             self.possible_moves.append((self.row, self.column+1))
         if self.column > 0:
             self.possible_moves.append((self.row, self.column-1))
-            
+
+    def CheckForCheck(self, board):
+        self.check_moves = []
+        self.check = False
+        ##BISHOP MOVES
+        self.check_moves.extend(self.explore_moves((-1, -1), board)[-1])# up left
+        self.check_moves.extend(self.explore_moves((-1, +1), board)[-1])# up right
+        self.check_moves.extend(self.explore_moves((+1, -1), board)[-1])# down left
+        self.check_moves.extend(self.explore_moves((+1, +1), board)[-1])# down right
+        #ROOK MOVES
+        self.check_moves.extend(self.explore_moves((-1, 0), board)[-1])# up
+        self.check_moves.extend(self.explore_moves((0, +1), board)[-1])# right
+        self.check_moves.extend(self.explore_moves((0, -1), board)[-1])# left
+        self.check_moves.extend(self.explore_moves((+1, 0), board)[-1])# down
+        ##KNIGHT MOVES
+        self.check_Knightmoves = []
+        if self.row < 6 and self.column > 0:
+            self.check_Knightmoves.append((self.row+2, self.column-1))
+        if self.row < 6 and self.column < 7:
+            self.check_Knightmoves.append((self.row+2, self.column+1))
+        if self.row > 1 and self.column > 0:
+            self.check_Knightmoves.append((self.row-2, self.column-1))
+        if self.row > 1 and self.column < 7:
+            self.check_Knightmoves.append((self.row-2, self.column+1))
+        if self.row > 0 and self.column < 6:
+            self.check_Knightmoves.append((self.row-1, self.column+2))
+        if self.row < 7 and self.column < 6:
+            self.check_Knightmoves.append((self.row+1, self.column+2))
+        if self.row > 0 and self.column > 1:
+            self.check_Knightmoves.append((self.row-1, self.column-2))
+        if self.row < 7 and self.column > 1:
+            self.check_Knightmoves.append((self.row+1, self.column-2))
+        for move in self.check_Knightmoves:
+            if board[move[0]][move[1]] == None:
+                del self.check_Knightmoves[move]
+        for piece in self.check_moves:
+            self.check = True        
+        for move in self.check_moves:
+            if board[move[0]][move[1]] == None:
+                del self.check_moves[move]
+        for piece in self.check_moves:
+            if board[piece[0]][piece[1]].piece == Queen: 
+                self.check == True
+            if board[piece[0]][piece[1]].piece == Rook:
+                if (self.row == piece[0]) or (self.column == piece[1]):
+                    self.check = True
+            if board[piece[0]][piece[1]].piece == Bishop:
+                if (self.row != piece[0]) or (self.column != piece[1]):
+                    self.check = True
+        #if queen = dead
+        #if knight = dead
+        #if it is on same row or column and a castle
+        #if on diagonal- bishop row or clumn differnt
+        #check what piece
+        #check how far away
+        #check direction
+        #'compare with what piece can do
+    #remove squares from list that are on a none 
+    #check wich pieces can take you
+    #return true
+    # if true create a loop in each piece
+    # when a piece moves
+    ##checks if you king not in check
+    # if king is still in check continue to run loop
+    # if king is no longer in check exit loop
 
         
 class Queen(GameObject):
@@ -204,3 +268,6 @@ turn = 0
 onclick = 0
 square_clicked = (0, 0) 
 old_colour = 'white'
+
+#after each turn
+#check if piece in fake king moves 
