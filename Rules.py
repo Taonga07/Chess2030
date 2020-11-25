@@ -6,9 +6,9 @@ class GameObject():
         self.colour = colour
         self.piece = piece
         self.row = row
+        self.value = value
         self.column = column
         self.possible_moves = []
-        self.value = value
 
     def move_piece(self, new_position):
         self.row, self.column = new_position
@@ -37,16 +37,6 @@ class GameObject():
             return True
         return False
     def explore_moves(self, direction, board):
-        # find posissible moves acording to what has been passed into it
-        # find posissible moves acording to what has been passed into it
-        ##example 1
-        ## we ge direction= 1, 1
-        ## bishop curren sqare is 7,4
-        # we get an empty list 
-        ##example 2
-        ## we ge direction= 1, 1
-        ## bishop curren sqare is 3,4
-        # we get an list with the values (4,5), (5,6), (6,7)
         working_value = self.row, self.column
         moves = []
         while True:
@@ -259,10 +249,10 @@ class Knight(GameObject):
 
 path = os.getcwd() + '/Chess_Resources/'
 icons = ['White_Rook.gif', 'White_Bishop.gif', 'White_Knight.gif', 'White_Queen.gif', 'White_King.gif', 'White_Knight.gif', 'White_Bishop.gif', 'White_Rook.gif', 'Black_Rook.gif', 'Black_Bishop.gif', 'Black_Knight.gif', 'Black_King.gif', 'Black_Queen.gif', 'Black_Knight.gif', 'Black_Bishop.gif', 'Black_Rook.gif'] #/media/barton_hill/THOMAS/ Digi@Local/MyCode/Python/4 - Green/Code/Chess_Resources/ gameOver = False
-pieces = ['Rook', 'Knight', 'Bishop', 'Queen', 'King', 'Bishop', 'Kight', 'Rook']
+pieces = ['Rook', 'Knight', 'Bishop', 'Queen', 'King', 'Bishop', 'Knight', 'Rook']
 
 light_bttnlcr ='white'
-dark_bttnlcr = 'black'
+dark_bttnlcr = 'grey'
 
 turn = 0
 onclick = 0
