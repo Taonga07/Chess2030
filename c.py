@@ -21,15 +21,15 @@ def reset_board():
         rowlist = []
         for column in range(0,8):
             if row == 0:
-                for piece in CC.pieces:
-                    rowlist.append(CP.Rook(piece, CC.path+'Black_'+piece+'.gif', 'black', column, row))
+                for piece in CP.pieces:
+                    rowlist.append(piece('Black', column, row))
             elif row == 1:
-                rowlist.append(CP.Pawn('Pawn', CC.path+'Black_Pawn.gif', 'black', column, row))
+                rowlist.append(CP.Pawn('Black', column, row))
             elif row == 6:
-                rowlist.append(CP.Pawn('Pawn', CC.path+'White_Pawn.gif', 'white', column, row))
+                rowlist.append(CP.Pawn('White', column, row))
             elif row == 7:
-                for piece in CC.pieces:
-                    rowlist.append(CP.Rook(piece, CC.path+'White_'+piece+'.gif', 'white', column, row))
+                for piece in CP.pieces:
+                    rowlist.append(piece('White', column, row))
             else:
                 rowlist.append(None)
         board.append(rowlist)
@@ -50,38 +50,40 @@ def layout_board(window, board):
         CC.bttnclr_turn = 1-CC.bttnclr_turn
 
 def on_click(event):
-    CC.onclick += 1
+    CC.onclick = 1 - CC.onclick
     square = event.widget
     row_number = int(square.grid_info()["row"])
     column_number  = int(square.grid_info()["column"])
     square_clicked = (row_number, column_number)
-    piece_clicked = board[square_clicked[0]][square_clicked[1]]
+    piece_clicked = board[row_number][column_number]
     if CC.onclick == 1: # this is our fist click we are selecting the piece we want to move
-        if (board[row_number][column_number] == None): # if there is no piece where we clicked
-            tkinter.messagebox.showinfo("Move Not Allowed","No piece there, try again")
-        else: # if there is a pice where we clicked
+        if (piece_clicked != None)and(((CC.turn == 0)and(piece_clicked.colour == 'White'))or((CC.turn == 1)and(piece_clicked.colour == 'Black'))):
             square.config(bg='blue') # set clicked square background to blue
             CC.square_clicked = square_clicked #row_number,column_number
             piece_clicked.find_moves(board)
+            CC.old_click = square_clicked
             piece_clicked.highlight_moves(window, board)
+        else: # if there is a pice where we clicked
+            tkinter.messagebox.showinfo("Move Not Allowed","No/Your piece there, try again")
+            CC.onclick = 1 - CC.onclick
+            return
     else: # this is our second click, we are selecting the square to move to
         if board[row_number][column_number] != None:
             if piece_clicked.colour == board[row_number][column_number].colour: # if we are taking our own piece
                 tkinter.messagebox.showinfo("Move Not Allowed","You can not take your own piece")
-                CC.onclick = 0
+                CC.onclick = 1 - CC.onclick
                 return
             valid_move = piece_clicked.check_move(square_clicked)
             if not valid_move:
                 tkinter.messagebox.showinfo("Move Not Allowed", "Move Not Allowed")
                 layout_board(window, board) #reset board
-                CC.onclick = 0 #seond click we want to alternate bettwen click 1 and 2
+                CC.onclick = 1 - CC.onclick #seond click we want to alternate bettwen click 1 and 2
                 return
-        board[row_number][column_number].row = row_number # move piece to new row
-        board[row_number][column_number].column = column_number # move piece to new column
-        board[square_clicked[0]][square_clicked[1]] = None # set old square to blank
+            board[row_number][column_number].row = row_number
+            board[row_number][column_number].column = column_number
+            board[old_click[0]][old_click[1]] = None
         layout_board(window, board) #reset board
-        CC.turn = 1 - CC.turn
-        CC.onclick = 0
+        CC.onclick = 1 - CC.onclick
 
 if __name__ =="__main__":
     play_chess()

@@ -1,12 +1,14 @@
+import CC
+
 class GameObject():
-    def __init__(self, piece, icon, colour, column, row, value):
-        self.possible_moves = []
-        self.column = column
-        self.colour = colour
+    def __init__(self, piece, colour, column, row, value):
+        self.row = row
         self.value = value
         self.piece = piece
-        self.icon = icon
-        self.row = row
+        self.colour = colour
+        self.column = column
+        self.possible_moves = []
+        self.icon = CC.path+self.colour+'_'+self.piece+'.gif'
     def highlight_moves(self, window, board):
         for i in self.possible_moves:
             row_number, column_number = i # get row and column of position i in board
@@ -36,11 +38,9 @@ class GameObject():
         return moves
 
 class Pawn(GameObject):
-    def __init__(self, piece, icon, colour, column, row):
-        super().__init__(piece, icon, colour, column, row, 1)
-        self.piece = 'Pawn'
+    def __init__(self, colour, column, row):
+        super().__init__('Pawn', colour, column, row, 1)
         self.first_move = True
-
     def find_moves(self, board):
         if self.colour == 'white':
             if board[self.row - 1][self.column] == None: 
@@ -66,11 +66,8 @@ class Pawn(GameObject):
                     self.possible_moves.append((self.row + 1, self.column - 1))
 
 class Rook(GameObject):
-    def __init__(self, piece, icon, colour, column, row):
-        super().__init__(piece, icon, colour, column, row, 4)
-        self.piece = 'Rook'
-        self.value = 4
-
+    def __init__(self, colour, column, row):
+        super().__init__('Rook', colour, column, row, 4)
     def find_moves(self, board):
         self.possible_moves.extend(self.explore_moves((-1, 0), board))# up
         self.possible_moves.extend(self.explore_moves((0, +1), board))# right
@@ -78,9 +75,8 @@ class Rook(GameObject):
         self.possible_moves.extend(self.explore_moves((+1, 0), board))# down
 
 class Bishop(GameObject):
-    def __init__(self, piece, icon, colour, column, row):
-        super().__init__(piece, icon, colour, column, row, 3)
-        self.piece = 'Bishop'
+    def __init__(self, colour, column, row):
+        super().__init__('Bishop', colour, column, row, 3)
     def find_moves(self, board): 
         self.possible_moves.extend(self.explore_moves((-1, -1), board))# up left
         self.possible_moves.extend(self.explore_moves((-1, +1), board))# up right
@@ -88,9 +84,8 @@ class Bishop(GameObject):
         self.possible_moves.extend(self.explore_moves((+1, +1), board))# down right
 
 class King(GameObject):
-    def __init__(self, piece, icon, colour, column, row):
-        super().__init__(piece, icon, colour, column, row, 1)
-        self.piece = 'King'
+    def __init__(self, colour, column, row):
+        super().__init__('King', colour, column, row, 1)
     def find_moves(self, board): 
         if self.row > 0:
             self.possible_moves.append((self.row-1, self.column))
@@ -110,9 +105,8 @@ class King(GameObject):
             self.possible_moves.append((self.row, self.column-1))
 
 class Queen(GameObject):
-    def __init__(self, piece, icon, colour, column, row):
-        super().__init__(piece, icon, colour, column, row, 9)
-        self.piece = 'Queen'
+    def __init__(self, colour, column, row):
+        super().__init__('Queen', colour, column, row, 9)
     def find_moves(self, board):
         self.possible_moves.extend(self.explore_moves((-1, -1), board))# up left
         self.possible_moves.extend(self.explore_moves((-1, +1), board))# up right
@@ -124,9 +118,8 @@ class Queen(GameObject):
         self.possible_moves.extend(self.explore_moves((+1, 0), board))# down
 
 class Knight(GameObject):
-    def __init__(self, piece, icon, colour, column, row):
-        super().__init__(piece, icon, colour, column, row, 5)
-        self.piece = 'Knight'
+    def __init__(self, colour, column, row):
+        super().__init__('Knight', colour, column, row, 5)
     def find_moves(self, board): 
         if self.row < 6 and self.column > 0:
             self.possible_moves.append((self.row+2, self.column-1))
@@ -144,3 +137,5 @@ class Knight(GameObject):
             self.possible_moves.append((self.row-1, self.column-2))
         if self.row < 7 and self.column > 1:
             self.possible_moves.append((self.row+1, self.column-2))
+
+pieces = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
