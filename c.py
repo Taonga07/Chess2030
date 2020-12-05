@@ -79,9 +79,10 @@ def on_click(event):
                 layout_board(window, board) #reset board
                 CC.onclick = 1 - CC.onclick #seond click we want to alternate bettwen click 1 and 2
                 return
-            board[row_number][column_number].row = row_number
-            board[row_number][column_number].column = column_number
-            board[old_click[0]][old_click[1]] = None
+        board[row_number][column_number] = board[CC.old_click[0]][CC.old_click[1]]
+        board[row_number][column_number].row = row_number
+        board[row_number][column_number].column = column_number
+        board[CC.old_click[0]][CC.old_click[1]] = None
         layout_board(window, board) #reset board
         CC.onclick = 1 - CC.onclick
 
