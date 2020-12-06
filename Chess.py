@@ -1,19 +1,34 @@
-import tkinter, CC, CP, os
+import tkinter, CC, CP, File, os
 from tkinter import messagebox
 
 def set_up_window():
-    global window
     window = tkinter.Tk()
     window.title('chess')
-    window.tk.call('wm', 'iconphoto', window._w, tkinter.PhotoImage(file=CC.path + 'Icon.png'))
-    return window
+    CC.reset_varibles()
+    File.start(window)
+    File.menu(window)
+    window.mainloop()
 
-def play_chess():
-    global board
+def play_chess(window):
+    destroy_all_widgets(window)
+    CC.reset_varibles()
+    File.menu(window)
     board = reset_board()
     window = set_up_window()
     layout_board(window, board)
-    window.mainloop()
+
+def destroy_all_widgets(window):
+    for widget in window.winfo_children():
+        if widget.winfo_class() != 'menubar':
+            widget.destroy()
+
+def mssg_bar(window, mssg):
+    messageLabel = tkinter.Label(window, text=mssg)
+    messageLabel.grid(
+        row=9,
+        column=3,
+        columnspan=5,
+        sticky=tkinter.N + tkinter.S + tkinter.W + tkinter.E)
 
 def reset_board():
     board = []
@@ -88,4 +103,4 @@ def on_click(event):
         CC.turn = 1 - CC.turn
 
 if __name__ =="__main__":
-    play_chess()
+    set_up_window()
