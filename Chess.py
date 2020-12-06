@@ -14,7 +14,6 @@ def play_chess(window):
     CC.reset_varibles()
     File.menu(window)
     board = reset_board()
-    window = set_up_window()
     layout_board(window, board)
 
 def destroy_all_widgets(window):
