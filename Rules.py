@@ -191,16 +191,28 @@ class Knight(GameObject):
             self.possible_moves.append((self.row+1, self.column-2))
 
 
+    path = os.getcwd() + '/Chess_Resources/'
+    icons = ['White_Rook.gif', 'White_Bishop.gif', 'White_Knight.gif', 'White_Queen.gif', 'White_King.gif', 'White_Knight.gif', 'White_Bishop.gif', 'White_Rook.gif', 'Black_Rook.gif', 'Black_Bishop.gif', 'Black_Knight.gif', 'Black_King.gif', 'Black_Queen.gif', 'Black_Knight.gif', 'Black_Bishop.gif', 'Black_Rook.gif'] #/media/barton_hill/THOMAS/ Digi@Local/MyCode/Python/4 - Green/Code/Chess_Resources/ gameOver = False
+    pieces = ['Rook', 'Knight', 'Bishop', 'Queen', 'King', 'Bishop', 'Kight', 'Rook']
+
+    light_bttnlcr ='white'
+    dark_bttnlcr = 'black'
+
+    turn = 0
+    onclick = 0
+    square_clicked = (0, 0) 
+    old_colour = 'white'
+
 # our varibles/lists
+def reset_varibles():
+    path = os.getcwd() + '/Chess_Resources/'
+    icons = ['White_Rook.gif', 'White_Bishop.gif', 'White_Knight.gif', 'White_Queen.gif', 'White_King.gif', 'White_Knight.gif', 'White_Bishop.gif', 'White_Rook.gif', 'Black_Rook.gif', 'Black_Bishop.gif', 'Black_Knight.gif', 'Black_King.gif', 'Black_Queen.gif', 'Black_Knight.gif', 'Black_Bishop.gif', 'Black_Rook.gif'] #/media/barton_hill/THOMAS/ Digi@Local/MyCode/Python/4 - Green/Code/Chess_Resources/ gameOver = False
+    pieces = ['Rook', 'Knight', 'Bishop', 'Queen', 'King', 'Bishop', 'Kight', 'Rook']
 
-path = os.getcwd() + '/Chess_Resources/'
-icons = ['White_Rook.gif', 'White_Bishop.gif', 'White_Knight.gif', 'White_Queen.gif', 'White_King.gif', 'White_Knight.gif', 'White_Bishop.gif', 'White_Rook.gif', 'Black_Rook.gif', 'Black_Bishop.gif', 'Black_Knight.gif', 'Black_King.gif', 'Black_Queen.gif', 'Black_Knight.gif', 'Black_Bishop.gif', 'Black_Rook.gif'] #/media/barton_hill/THOMAS/ Digi@Local/MyCode/Python/4 - Green/Code/Chess_Resources/ gameOver = False
-pieces = ['Rook', 'Knight', 'Bishop', 'Queen', 'King', 'Bishop', 'Kight', 'Rook']
+    light_bttnlcr ='white'
+    dark_bttnlcr = 'black'
 
-light_bttnlcr ='white'
-dark_bttnlcr = 'black'
-
-turn = 0
-onclick = 0
-square_clicked = (0, 0) 
-old_colour = 'white'
+    turn = 0
+    onclick = 0
+    square_clicked = (0, 0) 
+    old_colour = 'white'

@@ -1,8 +1,27 @@
 from tkinter import filedialog, messagebox
-#from tkinter.colorchooser import askcolor
 import tkinter, json, Chess, os
 
 def menu(window):
+    menubar = tkinter.Menu(window)
+
+    filemenu = tkinter.Menu(menubar, tearoff=0)
+    editmenu = tkinter.Menu(menubar, tearoff=0)
+    viewmenu = tkinter.Menu(menubar, tearoff=0)
+    toolmenu = tkinter.Menu(menubar, tearoff=0)
+    helpmenu = tkinter.Menu(menubar, tearoff=0)
+    filemenu.add_command(label="New", command=lambda: Chess.play_chess(window))
+    filemenu.add_command(label="Open", command=lambda: onOpen(window, Chess.board))
+    filemenu.add_separator()
+    filemenu.add_command(label="Exit", command=lambda: window.destroy())
+    helpmenu.add_command(label="Open Guide", command=lambda: openGuide())
+    menubar.add_cascade(label="File", menu=filemenu)
+    menubar.add_cascade(label="Edit", menu=editmenu)
+    menubar.add_cascade(label="View", menu=viewmenu)
+    menubar.add_cascade(label="Tools", menu=toolmenu)
+    menubar.add_cascade(label="Help", menu=helpmenu)
+    window.config(menu=menubar)
+
+def menu1(window):
     menubar = tkinter.Menu(window)
 
     filemenu = tkinter.Menu(menubar, tearoff=0)
@@ -58,8 +77,6 @@ def onSave(board):
                 for row_number in range(0,8):
                     filehandle.write('%s\n' % Chess.board[row_number][column_number])
 
-
-
 def openGuide():
     try:
         os.system("gedit Guide.txt")
@@ -69,17 +86,9 @@ def openGuide():
         except:
             tkinter.messagebox.showerror("Error","This is not possible!")
 
-#def Set_BoardColor():
-#    win = Window(Tk())
-#    win.mainloop()
-#    def __init__(self, master=None, cnf={}, **kw):
-#            super().__init__(master, cnf, **kw)
-#            self.open = Button(self, text='Pick a color', command=self.pick_a_color)
-#            self.exit = Button(self, text='Exit', command=self.quit)
-#    
-#            for b in (self.open, self.exit):
-#                b.pack(side=LEFT, expand=YES, fill=BOTH)
-#            self.pack()
-#    
-#        def pick_a_color(self):
-#            print(askcolor(parent=self, title='Pick a color'))
+def start(window):
+    window.tk.call('wm', 'iconphoto', window._w, tkinter.PhotoImage(file=Chess.Rules.path + 'Icon.png'))
+    photo = tkinter.PhotoImage(file=Chess.Rules.path + "Intro.gif")
+    w = tkinter.Label(window, image=photo)
+    w.image = photo
+    w.pack()
