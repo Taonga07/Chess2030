@@ -1,4 +1,4 @@
-import tkinter, CC, CP, File, os
+import tkinter, CC, CP, os
 from tkinter import messagebox
 
 def set_up_window():
@@ -85,6 +85,7 @@ def on_click(event):
         board[CC.old_click[0]][CC.old_click[1]] = None
         layout_board(window, board) #reset board
         CC.onclick = 1 - CC.onclick
+        CC.turn = 1 - CC.turn
 
 if __name__ =="__main__":
     play_chess()
