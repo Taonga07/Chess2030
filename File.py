@@ -87,8 +87,8 @@ def openGuide():
             tkinter.messagebox.showerror("Error","This is not possible!")
 
 def start(window):
-    window.tk.call('wm', 'iconphoto', window._w, tkinter.PhotoImage(file=Chess.Rules.path + 'Icon.png'))
-    photo = tkinter.PhotoImage(file=Chess.Rules.path + "Intro.gif")
+    window.tk.call('wm', 'iconphoto', window._w, tkinter.PhotoImage(file=Chess.CC.path + 'Icon.png'))
+    photo = tkinter.PhotoImage(file=Chess.CC.path + "Intro.gif")
     w = tkinter.Label(window, image=photo)
     w.image = photo
     w.pack()
