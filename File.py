@@ -91,4 +91,5 @@ def start(window):
     photo = tkinter.PhotoImage(file=Chess.CC.path + "Intro.gif")
     w = tkinter.Label(window, image=photo)
     w.image = photo
+    menu(window)
     w.pack()

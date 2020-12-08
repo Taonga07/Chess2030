@@ -2,17 +2,20 @@ import tkinter, CC, CP, File, os
 from tkinter import messagebox
 
 def set_up_window():
+    global window
     window = tkinter.Tk()
     window.title('chess')
-    CC.reset_varibles()
+    print(window)
     File.start(window)
-    File.menu(window)
+    print(window)
     window.mainloop()
 
 def play_chess(window):
+    global board
+    print(window)
     destroy_all_widgets(window)
     CC.reset_varibles()
-    File.menu(window)
+    File.menu1(window)
     board = reset_board()
     layout_board(window, board)
 
